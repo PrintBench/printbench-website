@@ -2,5 +2,5 @@ services:
   website:
     build: .
     restart: unless-stopped
-    ports:
-      - "${PORT:-8080}:80"
+    expose:
+      - "80"
