@@ -1,0 +1,69 @@
+---
+interface Props {
+  name:
+    | 'arrow-right'
+    | 'check'
+    | 'chevron-down'
+    | 'code'
+    | 'collection'
+    | 'database'
+    | 'docker'
+    | 'download'
+    | 'folder'
+    | 'github'
+    | 'heart'
+    | 'layers'
+    | 'lock'
+    | 'menu'
+    | 'play'
+    | 'printer'
+    | 'search'
+    | 'shield'
+    | 'sparkle'
+    | 'tag'
+    | 'upload'
+    | 'x'
+  size?: number
+}
+
+const { name, size = 20 } = Astro.props
+
+const paths: Record<Props['name'], string[]> = {
+  'arrow-right': ['M5 12h14', 'm13 6 6 6-6 6'],
+  check: ['m5 12 4 4L19 6'],
+  'chevron-down': ['m6 9 6 6 6-6'],
+  code: ['m8 9-4 3 4 3', 'm16 9 4 3-4 3', 'm14 5-4 14'],
+  collection: ['M3 7h6l2 2h10v10H3z', 'M3 7V5h6l2 2'],
+  database: ['M12 3c5 0 8 1.5 8 3s-3 3-8 3-8-1.5-8-3 3-3 8-3Z', 'M4 6v6c0 1.5 3 3 8 3s8-1.5 8-3V6', 'M4 12v6c0 1.5 3 3 8 3s8-1.5 8-3v-6'],
+  docker: ['M4 14h11', 'M6 11h3v3H6z', 'M10 11h3v3h-3z', 'M10 7h3v3h-3z', 'M14 11h3v3h-3z', 'M16 8c2.5.2 3.7 1.5 4 3-1.2 4-4.1 7-9.5 7H7c-2 0-3-1.3-3-4'],
+  download: ['M12 3v12', 'm7 10 5 5 5-5', 'M5 21h14'],
+  folder: ['M3 6h7l2 2h9v10H3z'],
+  github: ['M15 22v-3.9c.04-1-.35-1.75-.8-2.15 2.6-.29 5.33-1.28 5.33-5.76a4.5 4.5 0 0 0-1.2-3.13 4.2 4.2 0 0 0-.11-3.09s-.95-.31-3.22 1.2a11 11 0 0 0-5.86 0C6.87 3.66 5.92 3.97 5.92 3.97a4.2 4.2 0 0 0-.11 3.09 4.5 4.5 0 0 0-1.2 3.13c0 4.47 2.72 5.47 5.32 5.76-.34.3-.65.82-.76 1.59-.68.31-2.4.84-3.47-.99-.65-1.12-1.82-1.21-1.82-1.21-1.17-.02-.08.73-.08.73.78.36 1.33 1.75 1.33 1.75.69 2.1 3.99 1.39 3.99 1.39V22'],
+  heart: ['M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8Z'],
+  layers: ['m12 2 9 5-9 5-9-5 9-5Z', 'm3 12 9 5 9-5', 'm3 17 9 5 9-5'],
+  lock: ['M6 10h12v11H6z', 'M8 10V7a4 4 0 0 1 8 0v3'],
+  menu: ['M4 7h16', 'M4 12h16', 'M4 17h16'],
+  play: ['m8 5 11 7-11 7Z'],
+  printer: ['M6 9V3h12v6', 'M6 18H4V9h16v9h-2', 'M6 14h12v7H6z'],
+  search: ['M21 21l-4.35-4.35', 'M19 11a8 8 0 1 1-16 0 8 8 0 0 1 16 0Z'],
+  shield: ['M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z', 'm9 12 2 2 4-4'],
+  sparkle: ['m12 3 1.4 3.6L17 8l-3.6 1.4L12 13l-1.4-3.6L7 8l3.6-1.4L12 3Z', 'm19 14 .7 1.8 1.8.7-1.8.7L19 19l-.7-1.8-1.8-.7 1.8-.7L19 14Z', 'm5 14 .7 1.8 1.8.7-1.8.7L5 19l-.7-1.8-1.8-.7 1.8-.7L5 14Z'],
+  tag: ['M20 13 13 20l-9-9V4h7z', 'M8.5 8.5h.01'],
+  upload: ['M12 21V9', 'm7 14 5-5 5 5', 'M5 3h14'],
+  x: ['M6 6l12 12', 'M18 6 6 18'],
+}
+---
+
+<svg
+  width={size}
+  height={size}
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="1.8"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  aria-hidden="true"
+>
+  {paths[name].map((path) => <path d={path}></path>)}
+</svg>

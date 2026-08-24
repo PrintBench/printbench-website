@@ -1,0 +1,54 @@
+---
+interface Props {
+  compact?: boolean
+  class?: string
+  gradientId?: string
+}
+
+const { compact = false, class: className = '', gradientId = 'printbench-logo-gradient' } = Astro.props
+---
+
+<span class:list={['brand-logo', className]}>
+  <svg viewBox="0 0 107 128" fill="none" aria-hidden="true">
+    <defs>
+      <linearGradient id={gradientId} x1="0" y1="1" x2="1" y2="0">
+        <stop offset="0%" stop-color="#1B7FDB"></stop>
+        <stop offset="100%" stop-color="#2BBF9C"></stop>
+      </linearGradient>
+    </defs>
+    <path style={`stroke: url(#${gradientId})`} d="M16,116 L16,12 L62,12 A39,39 0 0 1 62,90 L16,90" />
+    <path style={`stroke: url(#${gradientId})`} d="M28,110 L28,24 L62,24 A27,27 0 0 1 62,78 L28,78" />
+    <path style={`stroke: url(#${gradientId})`} d="M40,104 L40,36 L62,36 A15,15 0 0 1 62,66 L40,66" />
+    <path style={`stroke: url(#${gradientId})`} d="M52,98 L52,48 L62,48 A3,3 0 0 1 62,54 L52,54" />
+  </svg>
+  {!compact && <span>Print<span>Bench</span></span>}
+</span>
+
+<style>
+  .brand-logo {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.62rem;
+    color: var(--ink);
+    font-size: 1.08rem;
+    font-weight: 730;
+    letter-spacing: -0.035em;
+    line-height: 1;
+  }
+
+  .brand-logo svg {
+    width: 1.72rem;
+    height: 2.05rem;
+    overflow: visible;
+  }
+
+  .brand-logo path {
+    stroke-width: 7;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .brand-logo > span > span {
+    color: var(--brand-cyan);
+  }
+</style>

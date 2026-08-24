@@ -1,0 +1,324 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro'
+import Icon from '../components/Icon.astro'
+import Logo from '../components/Logo.astro'
+import ProductPreview from '../components/ProductPreview.astro'
+
+const github = 'https://github.com/PrintBench/printbench'
+---
+
+<BaseLayout>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+    <header class="site-header" data-header>
+      <div class="nav-wrap container">
+        <a class="logo-link" href="#top" aria-label="PrintBench home"><Logo gradientId="header-logo-gradient" /></a>
+        <nav class="desktop-nav" aria-label="Main navigation">
+          <a href="#features">Features</a>
+          <a href="#workflow">How it works</a>
+          <a href="#open-source">Open source</a>
+          <a href="#get-started">Get started</a>
+        </nav>
+        <a class="nav-github" href={github} target="_blank" rel="noreferrer">
+          <Icon name="github" size={17} />
+          <span>View on GitHub</span>
+        </a>
+        <button class="menu-button" type="button" aria-expanded="false" aria-controls="mobile-nav" data-menu-button>
+          <span class="sr-only">Open navigation</span>
+          <span class="menu-open"><Icon name="menu" size={21} /></span>
+          <span class="menu-close"><Icon name="x" size={21} /></span>
+        </button>
+      </div>
+      <nav class="mobile-nav" id="mobile-nav" aria-label="Mobile navigation" data-mobile-nav>
+        <a href="#features">Features</a>
+        <a href="#workflow">How it works</a>
+        <a href="#open-source">Open source</a>
+        <a href="#get-started">Get started</a>
+        <a href={github} target="_blank" rel="noreferrer"><Icon name="github" size={17} /> View on GitHub</a>
+      </nav>
+    </header>
+
+    <main id="main">
+      <div class="hero-shell">
+      <section class="hero container" id="top">
+        <div class="hero-copy reveal">
+          <a class="eyebrow-pill" href={github} target="_blank" rel="noreferrer">
+            <span><Icon name="github" size={14} /></span>
+            Open source · MIT licensed
+            <Icon name="arrow-right" size={14} />
+          </a>
+          <h1>Your whole 3D print library.<br /><em>Ready when you are.</em></h1>
+          <p class="hero-lede">
+            PrintBench turns folders full of STL, 3MF, OBJ and PLY files into a visual, searchable workspace without moving or renaming a thing.
+          </p>
+          <div class="hero-actions">
+            <a class="button button-primary" href="#get-started">Get started <Icon name="arrow-right" size={17} /></a>
+            <a class="button button-ghost" href={github} target="_blank" rel="noreferrer"><Icon name="github" size={18} /> Explore the code</a>
+          </div>
+          <ul class="hero-proof" aria-label="Key benefits">
+            <li><Icon name="check" size={15} /> Self-hosted</li>
+            <li><Icon name="check" size={15} /> Postgres only</li>
+            <li><Icon name="check" size={15} /> Docker ready</li>
+          </ul>
+        </div>
+
+        <div class="hero-visual reveal reveal-delay">
+          <div class="preview-glow"></div>
+          <ProductPreview />
+          <div class="format-orbit format-stl">STL</div>
+          <div class="format-orbit format-3mf">3MF</div>
+          <div class="format-orbit format-obj">OBJ</div>
+        </div>
+      </section>
+
+      <div class="format-strip" aria-label="Supported capabilities">
+        <div class="container">
+          <p>Made for real print libraries</p>
+          <div class="format-list">
+            <span>STL</span><i></i><span>3MF</span><i></i><span>OBJ</span><i></i><span>PLY</span><i></i><span>Local disk</span><i></i><span>NAS</span><i></i><span>S3</span>
+          </div>
+        </div>
+      </div>
+  </div>
+
+      <section class="intro section container" id="features">
+        <div class="section-kicker"><span>01</span> Your library, upgraded</div>
+        <div class="intro-heading">
+          <h2>Your files already have a home.<br />Now give them a <em>workspace.</em></h2>
+          <p>Keep the folder structure that works for you. PrintBench adds the visual layer, metadata and workflow that a file browser cannot.</p>
+        </div>
+
+        <div class="value-grid">
+          <article class="value-card">
+            <div class="value-icon"><Icon name="search" size={22} /></div>
+            <span class="card-number">01</span>
+            <h3>Find anything</h3>
+            <p>Search names, creators and tags. Filter by format, support status, print history and more.</p>
+            <div class="micro-search"><Icon name="search" size={14} /><span>articulated dragon</span><kbd>12 results</kbd></div>
+          </article>
+          <article class="value-card featured">
+            <div class="value-icon"><Icon name="layers" size={22} /></div>
+            <span class="card-number">02</span>
+            <h3>See what you have</h3>
+            <p>Automatic thumbnails and in-browser 3D previews turn cryptic filenames into a library you can browse.</p>
+            <div class="mesh-mini" aria-hidden="true">
+              <svg viewBox="0 0 240 95" fill="none"><path d="m61 72 19-44 43-12 49 24-17 39-57 6-37-13Z"/><path d="m80 28 18 57 25-69 32 63M61 72l62-56 49 24-74 45"/><circle cx="123" cy="16" r="3"/><circle cx="98" cy="85" r="3"/><circle cx="172" cy="40" r="3"/></svg>
+            </div>
+          </article>
+          <article class="value-card">
+            <div class="value-icon"><Icon name="printer" size={22} /></div>
+            <span class="card-number">03</span>
+            <h3>Move from file to print</h3>
+            <p>Open a model in your slicer, send sliced files to a printer and keep a useful print history.</p>
+            <div class="micro-flow"><span>Model</span><b>→</b><span>Slicer</span><b>→</b><span class="live"><i></i> Printing</span></div>
+          </article>
+        </div>
+      </section>
+
+      <section class="bento section">
+        <div class="container">
+          <div class="section-heading centered">
+            <div class="section-kicker"><span>02</span> Built for the whole bench</div>
+            <h2>Everything between <em>downloaded</em> and <em>done.</em></h2>
+            <p>One calm interface for the files, context and actions around every print.</p>
+          </div>
+
+          <div class="bento-grid">
+            <article class="bento-card bento-wide library-card">
+              <div class="bento-copy">
+                <span class="icon-chip"><Icon name="folder" size={19} /></span>
+                <h3>Index in place. Stay in control.</h3>
+                <p>Point PrintBench at an existing folder and it is mounted read-only. Your carefully organised files are never moved, renamed or deleted.</p>
+                <span class="text-link">Local disks, NAS mounts and S3 <Icon name="arrow-right" size={15} /></span>
+              </div>
+              <div class="folder-map" aria-hidden="true">
+                <div class="folder-root"><Icon name="database" size={15} /><strong>/models</strong><small>Read only</small></div>
+                <div class="tree-lines"><i></i><i></i><i></i></div>
+                <div class="folder-row"><span><Icon name="folder" size={15} /></span><p>Dragons<small>128 models</small></p><b>Indexed</b></div>
+                <div class="folder-row"><span><Icon name="folder" size={15} /></span><p>Practical<small>304 models</small></p><b>Indexed</b></div>
+                <div class="folder-row"><span><Icon name="folder" size={15} /></span><p>Terrain<small>216 models</small></p><b>Indexed</b></div>
+              </div>
+            </article>
+
+            <article class="bento-card preview-card">
+              <span class="icon-chip"><Icon name="sparkle" size={19} /></span>
+              <h3>Previews without the baggage</h3>
+              <p>A pure TypeScript rasteriser creates deterministic thumbnails. There is no native 3D toolchain to install or maintain.</p>
+              <div class="wire-model" aria-hidden="true"><svg viewBox="0 0 260 150" fill="none"><path d="m58 116 9-65 60-30 69 29 8 66-72 22-74-22Z"/><path d="m67 51 65 87 64-88M58 116 127 21l77 95M67 51l129-1-64 88M127 21l5 117"/><path d="m96 38 36 100 29-102"/></svg><span>12.4M triangles</span></div>
+            </article>
+
+            <article class="bento-card organise-card">
+              <span class="icon-chip"><Icon name="collection" size={19} /></span>
+              <h3>Organise your way</h3>
+              <p>Creators, coloured tags, nested collections and private likes give every model more than one useful home.</p>
+              <div class="tag-cloud" aria-hidden="true"><span class="green"># tabletop</span><span class="blue"># functional</span><span class="purple"># presupported</span><span class="amber"># weekend</span><span># gifts</span></div>
+            </article>
+
+            <article class="bento-card bento-wide workflow-card">
+              <div class="workflow-visual" aria-hidden="true">
+                <div class="flow-column">
+                  <small>MODEL</small>
+                  <div class="file-cube"><Icon name="layers" size={28} /><span>dragon.3mf</span></div>
+                </div>
+                <div class="flow-line"><i></i><span><Icon name="arrow-right" size={15} /></span></div>
+                <div class="flow-column">
+                  <small>SLICER</small>
+                  <div class="slicer-tile"><Icon name="play" size={26} /><span>Open in…</span></div>
+                </div>
+                <div class="flow-line"><i></i><span><Icon name="arrow-right" size={15} /></span></div>
+                <div class="flow-column">
+                  <small>PRINTER</small>
+                  <div class="printer-tile"><Icon name="printer" size={28} /><span>2h 14m left</span><b><i></i> Printing</b></div>
+                </div>
+              </div>
+              <div class="bento-copy">
+                <span class="icon-chip"><Icon name="printer" size={19} /></span>
+                <h3>Carry the model to the finish line</h3>
+                <p>Hand files to Bambu Studio, Orca, PrusaSlicer, Cura or Lychee. Send jobs to OctoPrint, Moonraker and PrusaLink, then log the result.</p>
+              </div>
+            </article>
+
+            <article class="bento-card safety-card">
+              <span class="icon-chip"><Icon name="shield" size={19} /></span>
+              <h3>Designed to protect the library</h3>
+              <p>Scan guardrails spot an unplugged drive before it looks like mass deletion. Health checks surface missing, duplicated or unreadable files.</p>
+              <div class="health-meter"><div><span><Icon name="check" size={13} /></span><p><strong>Library healthy</strong><small>842 models checked</small></p></div><b>100%</b></div>
+            </article>
+
+            <article class="bento-card search-card">
+              <span class="icon-chip"><Icon name="search" size={19} /></span>
+              <h3>Search that understands a print library</h3>
+              <p>Typo-friendly matching, shareable filters and facets answer the questions you actually ask, such as “what have I never printed?”</p>
+              <div class="facet-list"><span><i></i> Pre-supported <b>86</b></span><span><i class="on"></i> Never printed <b>319</b></span><span><i></i> No preview <b>12</b></span></div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="steps section container" id="workflow">
+        <div class="steps-heading">
+          <div class="section-kicker"><span>03</span> From folder to workspace</div>
+          <h2>Up and running in<br /><em>three quiet steps.</em></h2>
+          <p>PrintBench works with the library you already have. No migration project required.</p>
+        </div>
+        <ol class="steps-list">
+          <li>
+            <span class="step-number">01</span>
+            <div class="step-icon"><Icon name="folder" size={23} /></div>
+            <div><h3>Point it at your files</h3><p>Mount a local folder, NAS share or connect S3-compatible storage. Existing libraries stay read-only.</p></div>
+          </li>
+          <li>
+            <span class="step-number">02</span>
+            <div class="step-icon"><Icon name="sparkle" size={23} /></div>
+            <div><h3>Let PrintBench index</h3><p>Models are grouped, analysed and rendered in the background. Add tags and collections whenever you like.</p></div>
+          </li>
+          <li>
+            <span class="step-number">03</span>
+            <div class="step-icon"><Icon name="printer" size={23} /></div>
+            <div><h3>Find it. Slice it. Print it.</h3><p>Search visually, open the right file in a slicer, send it onward and keep the outcome with the model.</p></div>
+          </li>
+        </ol>
+      </section>
+
+      <section class="open-source section" id="open-source">
+        <div class="open-grid container">
+          <div class="open-copy">
+            <div class="section-kicker light"><span>04</span> Open by design</div>
+            <h2>Your workshop.<br />Your data. <em>Your code.</em></h2>
+            <p>PrintBench is free, open source and self-hosted. Run it on hardware you control, inspect every line, and shape it around your bench.</p>
+            <div class="open-actions">
+              <a class="button button-light" href={github} target="_blank" rel="noreferrer"><Icon name="github" size={18} /> View the repository</a>
+              <a class="open-link" href={`${github}/blob/main/CONTRIBUTING.md`} target="_blank" rel="noreferrer">Contribute <Icon name="arrow-right" size={15} /></a>
+            </div>
+            <div class="license-note"><Icon name="code" size={18} /><span><strong>MIT licensed</strong>Free to use, modify and share.</span></div>
+          </div>
+          <div class="stack-card">
+            <div class="stack-top"><span></span><span></span><span></span><small>printbench / stack</small></div>
+            <div class="stack-row"><span class="stack-icon docker"><Icon name="docker" size={23} /></span><p><strong>Docker</strong><small>One production image</small></p><b>Ready</b></div>
+            <div class="stack-row"><span class="stack-icon"><Icon name="database" size={23} /></span><p><strong>Postgres</strong><small>The only infrastructure dependency</small></p><b>Connected</b></div>
+            <div class="stack-row"><span class="stack-icon"><Icon name="code" size={23} /></span><p><strong>TypeScript</strong><small>No native 3D toolchain</small></p><b>Portable</b></div>
+            <div class="stack-row"><span class="stack-icon"><Icon name="lock" size={23} /></span><p><strong>Your server</strong><small>Data stays under your control</small></p><b>Private</b></div>
+            <div class="stack-footer"><span><i></i> All systems ready</span><small>Works with Coolify</small></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="get-started section container" id="get-started">
+        <div class="install-panel">
+          <div class="install-copy">
+            <div class="section-kicker"><span>05</span> Start your workspace</div>
+            <h2>Bring your library<br /><em>to the bench.</em></h2>
+            <p>Docker Compose gets PrintBench and Postgres running together. Add your secrets, point it at a folder, and open the setup screen.</p>
+            <ul>
+              <li><Icon name="check" size={15} /> No Redis or message broker</li>
+              <li><Icon name="check" size={15} /> Clear backup and upgrade path</li>
+              <li><Icon name="check" size={15} /> Documented Coolify deployment</li>
+            </ul>
+            <a class="button button-dark" href={`${github}#quick-start-docker`} target="_blank" rel="noreferrer">Read the full guide <Icon name="arrow-right" size={17} /></a>
+          </div>
+          <div class="terminal-wrap">
+            <div class="terminal">
+              <div class="terminal-bar"><span></span><span></span><span></span><small>Quick start</small><button type="button" data-copy-button aria-label="Copy quick start commands"><Icon name="code" size={15} /><span>Copy</span></button></div>
+              <pre data-copy-source><code><span class="comment"># Get PrintBench</span>
+<span class="prompt">$</span> git clone https://github.com/PrintBench/printbench.git
+<span class="prompt">$</span> cd printbench
+
+<span class="comment"># Configure your instance</span>
+<span class="prompt">$</span> cp .env.example .env
+
+<span class="comment"># Start the workspace</span>
+<span class="prompt">$</span> docker compose up -d</code></pre>
+              <div class="terminal-status"><span><i></i> PrintBench is running</span><a href="http://localhost:8080">localhost:8080 <Icon name="arrow-right" size={13} /></a></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="faq container">
+        <div class="faq-heading"><div class="section-kicker"><span>?</span> Good to know</div><h2>Before you make room<br /><em>on the bench.</em></h2></div>
+        <div class="faq-list">
+          <details open><summary>Will PrintBench rearrange my files?<Icon name="chevron-down" size={18} /></summary><p>No. Existing libraries are mounted read-only and indexed where they already live. A separate managed library can be enabled if you want browser uploads.</p></details>
+          <details><summary>What file formats are supported?<Icon name="chevron-down" size={18} /></summary><p>PrintBench parses and previews STL, 3MF, OBJ and PLY files. It also understands sliced output and supporting files that belong with a model.</p></details>
+          <details><summary>What does it need to run?<Icon name="chevron-down" size={18} /></summary><p>Docker and Postgres. There is no Redis, Elasticsearch, message broker or native 3D rendering toolchain to operate.</p></details>
+          <details><summary>Can I deploy it with Coolify?<Icon name="chevron-down" size={18} /></summary><p>Yes. The repository includes a production Docker Compose stack and a focused Coolify deployment guide covering domains, persistent storage and environment variables.</p></details>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="footer-main container">
+        <div class="footer-brand"><Logo gradientId="footer-logo-gradient" /><p>A calmer home for every model,<br />file and finished print.</p></div>
+        <div class="footer-links"><div><strong>Product</strong><a href="#features">Features</a><a href="#workflow">How it works</a><a href="#get-started">Get started</a></div><div><strong>Project</strong><a href={github} target="_blank" rel="noreferrer">GitHub</a><a href={`${github}/blob/main/CONTRIBUTING.md`} target="_blank" rel="noreferrer">Contributing</a><a href={`${github}/blob/main/SECURITY.md`} target="_blank" rel="noreferrer">Security</a></div><div><strong>Resources</strong><a href={`${github}/blob/main/docs/deployment.md`} target="_blank" rel="noreferrer">Deployment</a><a href={`${github}/issues`} target="_blank" rel="noreferrer">Issues</a><a href={`${github}/blob/main/LICENSE`} target="_blank" rel="noreferrer">MIT license</a></div></div>
+      </div>
+      <div class="footer-bottom container"><p>© 2026 PrintBench. Open source under the MIT License.</p><a href={github} target="_blank" rel="noreferrer"><Icon name="github" size={16} /> PrintBench on GitHub</a></div>
+    </footer>
+
+  <script>
+    const menuButton = document.querySelector<HTMLButtonElement>('[data-menu-button]')
+    const mobileNav = document.querySelector<HTMLElement>('[data-mobile-nav]')
+
+    const closeMenu = () => {
+      menuButton?.setAttribute('aria-expanded', 'false')
+      mobileNav?.classList.remove('is-open')
+    }
+
+    menuButton?.addEventListener('click', () => {
+      const open = menuButton.getAttribute('aria-expanded') === 'true'
+      menuButton.setAttribute('aria-expanded', String(!open))
+      mobileNav?.classList.toggle('is-open', !open)
+    })
+
+    mobileNav?.querySelectorAll('a').forEach((link) => link.addEventListener('click', closeMenu))
+
+    const copyButton = document.querySelector<HTMLButtonElement>('[data-copy-button]')
+    const copySource = document.querySelector<HTMLElement>('[data-copy-source]')
+    copyButton?.addEventListener('click', async () => {
+      const text = copySource?.innerText.replace(/^\$ /gm, '').replace(/^#.*\n?/gm, '').trim()
+      if (!text) return
+      await navigator.clipboard.writeText(text)
+      const label = copyButton.querySelector('span')
+      if (label) label.textContent = 'Copied'
+      window.setTimeout(() => { if (label) label.textContent = 'Copy' }, 1800)
+    })
+  </script>
+</BaseLayout>

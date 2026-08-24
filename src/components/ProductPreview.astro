@@ -1,0 +1,173 @@
+---
+import Icon from './Icon.astro'
+
+const models = [
+  { name: 'Articulated Dragon', meta: '8 files · 42.6 MB', kind: 'dragon', tone: 'mint' },
+  { name: 'Gridfinity Bin Set', meta: '24 files · 118 MB', kind: 'grid', tone: 'blue' },
+  { name: 'Low-poly Planter', meta: '3 files · 16.2 MB', kind: 'planter', tone: 'violet' },
+  { name: 'Cable Organiser', meta: '6 files · 12.4 MB', kind: 'cable', tone: 'amber' },
+]
+---
+
+<div class="app-window" aria-label="A preview of the PrintBench model library interface">
+  <div class="window-bar">
+    <div class="traffic"><i></i><i></i><i></i></div>
+    <div class="address"><span></span> printbench.local/models</div>
+    <div class="window-action"></div>
+  </div>
+  <div class="app-body">
+    <aside>
+      <div class="app-brand">
+        <span class="mini-mark"></span>
+        <strong>Print<span>Bench</span></strong>
+      </div>
+      <div class="nav-group">
+        <small>Workspace</small>
+        <div><Icon name="collection" size={14} /> Dashboard</div>
+        <div><Icon name="search" size={14} /> Search</div>
+        <div class="selected"><Icon name="layers" size={14} /> Models <b>842</b></div>
+        <div><Icon name="upload" size={14} /> Upload</div>
+      </div>
+      <div class="nav-group second">
+        <small>Library</small>
+        <div><Icon name="folder" size={14} /> Collections</div>
+        <div><Icon name="tag" size={14} /> Tags</div>
+        <div><Icon name="heart" size={14} /> Liked</div>
+        <div><Icon name="printer" size={14} /> Print history</div>
+      </div>
+      <div class="user-pill"><span>RS</span><p>Rich's workshop<small>Administrator</small></p></div>
+    </aside>
+
+    <main>
+      <div class="app-heading">
+        <div><h3>Models</h3><p>842 in your library</p></div>
+        <button><Icon name="upload" size={13} /> Upload</button>
+      </div>
+      <div class="search-row">
+        <div class="search-box"><Icon name="search" size={13} /> Search models, creators and tags… <kbd>⌘ K</kbd></div>
+        <div class="sort">Newest <Icon name="chevron-down" size={12} /></div>
+      </div>
+      <div class="filter-row"><span class="active">All models</span><span>Pre-supported</span><span>Never printed</span><span>Liked</span></div>
+      <div class="model-grid">
+        {models.map((model) => (
+          <article>
+            <div class:list={['model-art', model.tone]}>
+              <svg viewBox="0 0 180 104" fill="none" aria-hidden="true">
+                {model.kind === 'dragon' && <><path d="M46 80c18-4 26-18 22-28-5-13 12-31 27-22 10 6 7 19-1 20 9 1 20 7 26 19-18-3-26 3-31 13-9-10-22-9-43-2Z"/><path d="m69 53-17-12 3 21M97 35l13-12-2 19M85 69l-10 18M103 67l12 17"/></>}
+                {model.kind === 'grid' && <><path d="m45 66 36-21 52 15-37 23-51-17Z"/><path d="M45 66v15l51 16 37-23V60M96 83v14M81 45v19l52 15M62 56l51 16M78 79l37-23"/></>}
+                {model.kind === 'planter' && <><path d="m55 30 36-11 36 13-9 52-28 12-27-12-8-54Z"/><path d="m55 30 35 16 37-14M90 46v50M63 84l27-38 28 38M68 24l22 22 24-21"/></>}
+                {model.kind === 'cable' && <><path d="M47 77c0-30 15-47 43-47s43 17 43 47"/><path d="M61 77c0-21 9-33 29-33s29 12 29 33M47 77h18v14H47zM115 77h18v14h-18z"/><path d="M74 75c0-10 6-18 16-18s16 8 16 18"/></>}
+              </svg>
+              <span>STL</span>
+            </div>
+            <div class="model-copy"><strong>{model.name}</strong><span>{model.meta}</span></div>
+          </article>
+        ))}
+      </div>
+    </main>
+  </div>
+  <div class="scan-toast"><span><Icon name="check" size={13} /></span><p><strong>Library scan complete</strong><small>37 new models indexed</small></p></div>
+</div>
+
+<style>
+  .app-window {
+    position: relative;
+    width: min(100%, 760px);
+    overflow: visible;
+    border: 1px solid rgba(173, 204, 216, 0.18);
+    border-radius: 18px;
+    background: #172029;
+    box-shadow: 0 45px 90px rgba(2, 11, 16, 0.38), 0 12px 28px rgba(2, 11, 16, 0.35);
+    color: #edf4f4;
+    font-size: 10px;
+  }
+
+  .window-bar {
+    display: flex;
+    height: 35px;
+    align-items: center;
+    gap: 12px;
+    padding: 0 13px;
+    border-bottom: 1px solid rgba(173, 204, 216, 0.1);
+    background: #111920;
+    border-radius: 18px 18px 0 0;
+  }
+
+  .traffic { display: flex; gap: 5px; }
+  .traffic i { width: 6px; height: 6px; border-radius: 50%; background: #51606a; }
+  .traffic i:first-child { background: #ef746a; }
+  .traffic i:nth-child(2) { background: #eab65e; }
+  .traffic i:nth-child(3) { background: #58ba83; }
+  .address { margin: auto; width: 210px; padding: 5px 10px; border-radius: 5px; background: #1d2831; color: #87969f; text-align: center; font-size: 8px; }
+  .address span { display: inline-block; width: 5px; height: 5px; margin-right: 4px; border: 1px solid #5f6f77; border-radius: 50%; }
+  .window-action { width: 31px; }
+
+  .app-body { display: grid; grid-template-columns: 145px 1fr; min-height: 405px; }
+  aside { position: relative; padding: 17px 11px 12px; border-right: 1px solid rgba(173, 204, 216, 0.1); background: #141d25; }
+  .app-brand { display: flex; align-items: center; gap: 7px; padding: 0 6px 16px; font-size: 11px; }
+  .app-brand strong > span { color: #2bbfba; }
+  .mini-mark { display: inline-block; width: 13px; height: 16px; border: 2px solid #2aa7c5; border-right-color: #2bbf9c; border-radius: 2px 7px 7px 2px; }
+
+  .nav-group { display: grid; gap: 2px; }
+  .nav-group.second { margin-top: 15px; }
+  .nav-group small { margin: 0 7px 4px; color: #5c6d78; font-size: 7px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; }
+  .nav-group div { display: flex; align-items: center; gap: 7px; padding: 6px 7px; border-radius: 5px; color: #8797a1; }
+  .nav-group .selected { background: #213742; color: #76d6d0; }
+  .nav-group b { margin-left: auto; color: #71818b; font-size: 8px; }
+  .user-pill { position: absolute; right: 11px; bottom: 12px; left: 11px; display: flex; align-items: center; gap: 7px; padding: 8px; border-top: 1px solid rgba(173, 204, 216, .08); }
+  .user-pill > span { display: grid; width: 23px; height: 23px; place-items: center; border-radius: 50%; background: #245866; color: #96ebe3; font-size: 7px; }
+  .user-pill p { margin: 0; color: #b8c4c9; font-size: 8px; }
+  .user-pill small { display: block; margin-top: 2px; color: #61717a; font-size: 7px; }
+
+  main { min-width: 0; padding: 20px 21px; background: #18222b; border-radius: 0 0 18px; }
+  .app-heading { display: flex; align-items: center; justify-content: space-between; }
+  .app-heading h3 { margin: 0; font-size: 17px; letter-spacing: -.03em; }
+  .app-heading p { margin: 3px 0 0; color: #72828c; font-size: 8px; }
+  .app-heading button { display: flex; align-items: center; gap: 5px; padding: 6px 9px; border: 0; border-radius: 5px; background: #43c7bd; color: #10252b; font: inherit; font-weight: 700; }
+  .search-row { display: grid; grid-template-columns: 1fr 78px; gap: 7px; margin-top: 16px; }
+  .search-box, .sort { display: flex; align-items: center; gap: 6px; height: 29px; padding: 0 9px; border: 1px solid #2a3842; border-radius: 6px; background: #141d25; color: #647681; }
+  .search-box kbd { margin-left: auto; padding: 2px 4px; border: 1px solid #35434c; border-radius: 3px; color: #667781; font: inherit; font-size: 7px; }
+  .sort { justify-content: space-between; color: #9fadb4; }
+  .filter-row { display: flex; gap: 5px; margin-top: 10px; }
+  .filter-row span { padding: 4px 7px; border: 1px solid #2a3842; border-radius: 99px; color: #71828c; font-size: 7px; }
+  .filter-row .active { border-color: #31666b; background: #1c3b40; color: #77d3cc; }
+
+  .model-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 9px; margin-top: 12px; }
+  article { min-width: 0; overflow: hidden; border: 1px solid #28363f; border-radius: 8px; background: #151f27; }
+  .model-art { position: relative; height: 94px; overflow: hidden; background: radial-gradient(circle at 50% 45%, #214c4e, #18282d 70%); }
+  .model-art.blue { background: radial-gradient(circle at 50% 45%, #263e60, #19242f 70%); }
+  .model-art.violet { background: radial-gradient(circle at 50% 45%, #473858, #242432 70%); }
+  .model-art.amber { background: radial-gradient(circle at 50% 45%, #55452e, #2b2825 70%); }
+  .model-art::after { content: ''; position: absolute; right: 10%; bottom: 8px; left: 10%; height: 1px; background: rgba(255,255,255,.06); box-shadow: 0 -18px rgba(255,255,255,.035), 0 -36px rgba(255,255,255,.025); }
+  .model-art svg { position: relative; z-index: 1; width: 100%; height: 100%; filter: drop-shadow(0 9px 7px rgba(0,0,0,.25)); }
+  .model-art svg path { stroke: #68d8c8; stroke-width: 2; fill: rgba(104,216,200,.14); stroke-linejoin: round; }
+  .model-art.blue svg path { stroke: #75a9ee; fill: rgba(117,169,238,.14); }
+  .model-art.violet svg path { stroke: #c29adc; fill: rgba(194,154,220,.13); }
+  .model-art.amber svg path { stroke: #e6b869; fill: rgba(230,184,105,.12); }
+  .model-art > span { position: absolute; z-index: 2; top: 7px; right: 7px; padding: 2px 4px; border: 1px solid rgba(255,255,255,.1); border-radius: 3px; background: rgba(10,15,19,.45); color: #8e9da4; font-size: 6px; }
+  .model-copy { display: grid; gap: 3px; padding: 8px 9px; }
+  .model-copy strong { overflow: hidden; color: #d8e0e2; font-size: 8px; text-overflow: ellipsis; white-space: nowrap; }
+  .model-copy span { color: #657781; font-size: 7px; }
+
+  .scan-toast { position: absolute; right: -25px; bottom: 21px; display: flex; align-items: center; gap: 8px; width: 166px; padding: 9px 10px; border: 1px solid rgba(114, 217, 199, .18); border-radius: 9px; background: rgba(25, 40, 47, .94); box-shadow: 0 15px 30px rgba(1, 8, 12, .3); backdrop-filter: blur(10px); }
+  .scan-toast > span { display: grid; width: 23px; height: 23px; place-items: center; border-radius: 50%; background: #214b47; color: #78ddd0; }
+  .scan-toast p { display: grid; gap: 2px; margin: 0; }
+  .scan-toast strong { font-size: 8px; }
+  .scan-toast small { color: #73858e; font-size: 7px; }
+
+  @media (max-width: 720px) {
+    .app-window { font-size: 8px; }
+    .app-body { grid-template-columns: 1fr; min-height: 355px; }
+    aside { display: none; }
+    main { border-radius: 0 0 18px 18px; padding: 17px; }
+    .model-art { height: 82px; }
+    .scan-toast { right: -8px; bottom: 14px; }
+  }
+
+  @media (max-width: 430px) {
+    .filter-row span:nth-child(n+3), .sort { display: none; }
+    .search-row { grid-template-columns: 1fr; }
+    .model-art { height: 72px; }
+    .address { width: 170px; }
+  }
+</style>
