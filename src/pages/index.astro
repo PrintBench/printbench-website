@@ -5,6 +5,7 @@ import Logo from '../components/Logo.astro'
 import ProductPreview from '../components/ProductPreview.astro'
 
 const github = 'https://github.com/PrintBench/printbench'
+const docs = 'https://docs.printbench.app'
 ---
 
 <BaseLayout>
@@ -16,12 +17,11 @@ const github = 'https://github.com/PrintBench/printbench'
         <nav class="desktop-nav" aria-label="Main navigation">
           <a href="#features">Features</a>
           <a href="#workflow">How it works</a>
-          <a href="#open-source">Open source</a>
-          <a href="#get-started">Get started</a>
+          <a href={docs}>Documentation</a>
         </nav>
-        <a class="nav-github" href={github} target="_blank" rel="noreferrer">
-          <Icon name="github" size={17} />
-          <span>View on GitHub</span>
+        <a class="nav-cta" href="#get-started">
+          <span>Get started</span>
+          <Icon name="arrow-right" size={16} />
         </a>
         <button class="menu-button" type="button" aria-expanded="false" aria-controls="mobile-nav" data-menu-button>
           <span class="sr-only">Open navigation</span>
@@ -32,7 +32,7 @@ const github = 'https://github.com/PrintBench/printbench'
       <nav class="mobile-nav" id="mobile-nav" aria-label="Mobile navigation" data-mobile-nav>
         <a href="#features">Features</a>
         <a href="#workflow">How it works</a>
-        <a href="#open-source">Open source</a>
+        <a href={docs}>Documentation</a>
         <a href="#get-started">Get started</a>
         <a href={github} target="_blank" rel="noreferrer"><Icon name="github" size={17} /> View on GitHub</a>
       </nav>
@@ -288,7 +288,7 @@ const github = 'https://github.com/PrintBench/printbench'
     <footer>
       <div class="footer-main container">
         <div class="footer-brand"><Logo gradientId="footer-logo-gradient" /><p>A calmer home for every model,<br />file and finished print.</p></div>
-        <div class="footer-links"><div><strong>Product</strong><a href="#features">Features</a><a href="#workflow">How it works</a><a href="#get-started">Get started</a></div><div><strong>Project</strong><a href={github} target="_blank" rel="noreferrer">GitHub</a><a href={`${github}/blob/main/CONTRIBUTING.md`} target="_blank" rel="noreferrer">Contributing</a><a href={`${github}/blob/main/SECURITY.md`} target="_blank" rel="noreferrer">Security</a></div><div><strong>Resources</strong><a href={`${github}/blob/main/docs/deployment.md`} target="_blank" rel="noreferrer">Deployment</a><a href={`${github}/issues`} target="_blank" rel="noreferrer">Issues</a><a href={`${github}/blob/main/LICENSE`} target="_blank" rel="noreferrer">MIT license</a></div></div>
+        <div class="footer-links"><div><strong>Product</strong><a href="#features">Features</a><a href="#workflow">How it works</a><a href="#get-started">Get started</a></div><div><strong>Project</strong><a href={github} target="_blank" rel="noreferrer">GitHub</a><a href={`${github}/blob/main/CONTRIBUTING.md`} target="_blank" rel="noreferrer">Contributing</a><a href={`${github}/blob/main/SECURITY.md`} target="_blank" rel="noreferrer">Security</a></div><div><strong>Resources</strong><a href={docs}>Documentation</a><a href={`${github}/blob/main/docs/deployment.md`} target="_blank" rel="noreferrer">Deployment</a><a href={`${github}/issues`} target="_blank" rel="noreferrer">Issues</a><a href={`${github}/blob/main/LICENSE`} target="_blank" rel="noreferrer">MIT license</a></div></div>
       </div>
       <div class="footer-bottom container"><p>© 2026 PrintBench. Open source under the MIT License.</p><a href={github} target="_blank" rel="noreferrer"><Icon name="github" size={16} /> PrintBench on GitHub</a></div>
     </footer>
