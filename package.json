@@ -11,7 +11,7 @@
   },
   "devDependencies": {
     "@astrojs/check": "latest",
-    "astro": "latest",
+    "astro": "7.2.8",
     "typescript": "latest"
   }
 }
