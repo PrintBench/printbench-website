@@ -1,5 +1,6 @@
 services:
   website:
+    mem_limit: 128m
     build: .
     restart: unless-stopped
     expose:
