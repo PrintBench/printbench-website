@@ -39,3 +39,5 @@ Create a new resource from the Git repository and choose **Dockerfile** as the b
 No environment variables or persistent volumes are required. Coolify should terminate TLS and proxy the public domain to port `80`.
 
 If this folder is still inside the main PrintBench repository, use `/website/Dockerfile` as the Dockerfile location and `/website` as the build context instead.
+
+Test
