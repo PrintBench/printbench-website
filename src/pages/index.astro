@@ -1,10 +1,12 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro'
+import GitHubStars from '../components/GitHubStars.astro'
 import Icon from '../components/Icon.astro'
 import Logo from '../components/Logo.astro'
 import ProductPreview from '../components/ProductPreview.astro'
 
 const github = 'https://github.com/PrintBench/printbench'
+const githubApi = `https://api.github.com/repos${new URL(github).pathname}`
 const docs = 'https://docs.printbench.app'
 ---
 
@@ -18,6 +20,9 @@ const docs = 'https://docs.printbench.app'
           <a href="#features">Features</a>
           <a href="#workflow">How it works</a>
           <a href={docs}>Documentation</a>
+          <a class="nav-github" href={github} target="_blank" rel="noreferrer">
+            <Icon name="github" size={17} /> GitHub <GitHubStars apiUrl={githubApi} />
+          </a>
         </nav>
         <a class="nav-cta" href="#get-started">
           <span>Get started</span>
@@ -34,7 +39,9 @@ const docs = 'https://docs.printbench.app'
         <a href="#workflow">How it works</a>
         <a href={docs}>Documentation</a>
         <a href="#get-started">Get started</a>
-        <a href={github} target="_blank" rel="noreferrer"><Icon name="github" size={17} /> View on GitHub</a>
+        <a href={github} target="_blank" rel="noreferrer">
+          <Icon name="github" size={17} /> View on GitHub <GitHubStars apiUrl={githubApi} />
+        </a>
       </nav>
     </header>
 
@@ -222,7 +229,10 @@ const docs = 'https://docs.printbench.app'
             <h2>Your workshop.<br />Your data. <em>Your code.</em></h2>
             <p>PrintBench is free, open source and self-hosted. Run it on hardware you control, inspect every line, and shape it around your bench.</p>
             <div class="open-actions">
-              <a class="button button-light" href={github} target="_blank" rel="noreferrer"><Icon name="github" size={18} /> View the repository</a>
+              <a class="button button-light" href={github} target="_blank" rel="noreferrer">
+                <Icon name="github" size={18} /> View the repository
+                <GitHubStars apiUrl={githubApi} />
+              </a>
               <a class="open-link" href={`${github}/blob/main/CONTRIBUTING.md`} target="_blank" rel="noreferrer">Contribute <Icon name="arrow-right" size={15} /></a>
             </div>
             <div class="license-note"><Icon name="code" size={18} /><span><strong>MIT licensed</strong>Free to use, modify and share.</span></div>
@@ -289,6 +299,34 @@ const docs = 'https://docs.printbench.app'
     </footer>
 
   <script>
+    const githubStarBadges = document.querySelectorAll<HTMLElement>('[data-github-stars]')
+    const githubApi = githubStarBadges[0]?.dataset.githubStars
+
+    if (githubApi) {
+      fetch(githubApi, { credentials: 'omit', referrerPolicy: 'no-referrer' })
+        .then(async (response) => {
+          if (!response.ok) return
+          const { stargazers_count: count } = await response.json()
+          if (!Number.isSafeInteger(count) || count < 0) return
+
+          const formatted = new Intl.NumberFormat(document.documentElement.lang).format(count)
+          const label = `${formatted} ${count === 1 ? 'GitHub star' : 'GitHub stars'}`
+
+          githubStarBadges.forEach((badge) => {
+            const starCount = badge.querySelector('[data-star-count]')
+            const starLabel = badge.querySelector('[data-star-label]')
+            if (!starCount || !starLabel) return
+
+            starCount.textContent = formatted
+            starLabel.textContent = label
+            badge.hidden = false
+          })
+        })
+        .catch(() => {
+          // The repository link remains available if GitHub cannot be reached.
+        })
+    }
+
     const menuButton = document.querySelector<HTMLButtonElement>('[data-menu-button]')
     const mobileNav = document.querySelector<HTMLElement>('[data-mobile-nav]')
 
