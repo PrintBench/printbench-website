@@ -6,4 +6,4 @@ description: Follow what’s planned, what’s in progress and what has shipped 
 
 See how PrintBench is developing. We’ll add upcoming work here as plans take shape.
 
-[Share an idea on GitHub](https://github.com/PrintBench/printbench/issues).
+[Share an idea on GitHub](https://github.com/PrintBench/printbench/issues) or [browse the full release notes](https://docs.printbench.app/releases/).

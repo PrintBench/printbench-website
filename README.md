@@ -15,20 +15,22 @@ The development server runs at `http://localhost:4321`.
 
 - Edit [`src/pages/roadmap.md`](src/pages/roadmap.md) to change the page title, search description, introduction or feedback link. Keep the `layout` line.
 - Add one Markdown file per item in [`src/content/roadmap/`](src/content/roadmap/). To remove an item, delete its file.
-- Set `title` and `status` in the frontmatter. Use `in-progress`, `planned` or `shipped` for the status. Change the status to move the item between sections.
-- Set an optional whole-number `order` to sort within a section. Lower numbers appear first, the default is `0`, and ties sort by filename. Sections without items are hidden.
+- Set `title` and `status` in the frontmatter. Use `in-progress` for active work, `planned` for upcoming work, or `shipped` for released work. Sections without items are hidden.
+- For a shipped item, add an optional `version` such as `v0.7.6`. It links to the release notes. Shipped items sort by version, newest first, followed by any shipped items without a version.
+- Set an optional whole-number `order` to arrange items in a section or within the same shipped version. Lower numbers appear first, the default is `0`, and ties sort by filename.
 - Write the item’s details and related links in the Markdown body. Use `npm run dev` to preview at `http://localhost:4321/roadmap/`. The next website build and deployment publishes the changes.
 
-For example, `src/content/roadmap/print-queue-filters.md` could contain:
+For example, a shipped item can use this frontmatter and Markdown body.
 
 ```md
 ---
-title: Print queue filters
-status: planned
+title: Filament inventory
+status: shipped
+version: v0.7.0
 order: 10
 ---
 
-Filter the queue by printer or print status.
+Track spools and record how much filament each print uses.
 ```
 
 ## Production build
