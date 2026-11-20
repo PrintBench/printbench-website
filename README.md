@@ -11,6 +11,26 @@ npm run dev
 
 The development server runs at `http://localhost:4321`.
 
+## Editing the roadmap
+
+- Edit [`src/pages/roadmap.md`](src/pages/roadmap.md) to change the page title, search description, introduction or feedback link. Keep the `layout` line.
+- Add one Markdown file per item in [`src/content/roadmap/`](src/content/roadmap/). To remove an item, delete its file.
+- Set `title` and `status` in the frontmatter. Use `in-progress`, `planned` or `shipped` for the status. Change the status to move the item between sections.
+- Set an optional whole-number `order` to sort within a section. Lower numbers appear first, the default is `0`, and ties sort by filename. Sections without items are hidden.
+- Write the item’s details and related links in the Markdown body. Use `npm run dev` to preview at `http://localhost:4321/roadmap/`. The next website build and deployment publishes the changes.
+
+For example, `src/content/roadmap/print-queue-filters.md` could contain:
+
+```md
+---
+title: Print queue filters
+status: planned
+order: 10
+---
+
+Filter the queue by printer or print status.
+```
+
 ## Production build
 
 ```bash

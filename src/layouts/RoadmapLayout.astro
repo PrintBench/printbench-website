@@ -1,0 +1,133 @@
+---
+import { getCollection, render } from 'astro:content'
+import SiteFooter from '../components/SiteFooter.astro'
+import SiteHeader from '../components/SiteHeader.astro'
+import BaseLayout from './BaseLayout.astro'
+
+interface Props {
+  frontmatter: {
+    title: string
+    description: string
+  }
+}
+
+const { title, description } = Astro.props.frontmatter
+const statuses = [
+  { id: 'in-progress', label: 'In progress' },
+  { id: 'planned', label: 'Planned' },
+  { id: 'shipped', label: 'Shipped' },
+] as const
+
+const entries = await getCollection('roadmap')
+entries.sort((a, b) => a.data.order - b.data.order || a.id.localeCompare(b.id, 'en'))
+
+const groups = await Promise.all(statuses.map(async (status) => {
+  const items = await Promise.all(
+    entries.filter((entry) => entry.data.status === status.id).map(async (entry) => {
+      const { Content } = await render(entry)
+      return { title: entry.data.title, Content }
+    }),
+  )
+  return { ...status, items }
+}))
+---
+
+<BaseLayout title={title} description={description}>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <SiteHeader />
+
+  <main id="main">
+    <div class="hero-shell">
+      <div class="roadmap-hero container">
+        <h1>{title}</h1>
+        <div class="roadmap-copy"><slot /></div>
+      </div>
+    </div>
+
+    <div class="roadmap-groups container">
+      {groups.filter(({ items }) => items.length > 0).map(({ id, label, items }) => (
+        <section class="roadmap-group" aria-labelledby={id}>
+          <h2 id={id}>{label}</h2>
+          <div class="roadmap-items">
+            {items.map(({ title, Content }) => (
+              <article class="roadmap-item">
+                <h3>{title}</h3>
+                <div class="roadmap-copy"><Content /></div>
+              </article>
+            ))}
+          </div>
+        </section>
+      ))}
+    </div>
+  </main>
+
+  <SiteFooter />
+</BaseLayout>
+
+<style>
+  .roadmap-hero {
+    position: relative;
+    padding-block: clamp(8rem, 15vw, 11rem) clamp(3rem, 8vw, 6rem);
+  }
+
+  .roadmap-hero h1 {
+    margin-bottom: 1.25rem;
+    font-size: clamp(2.75rem, 7vw, 5rem);
+    font-weight: 650;
+    letter-spacing: -.06em;
+    line-height: 1;
+  }
+
+  .roadmap-hero .roadmap-copy {
+    max-width: 60ch;
+    color: #c0cbd0;
+  }
+
+  .roadmap-hero .roadmap-copy :global(a) { color: #69d3c6; }
+
+  .roadmap-groups {
+    display: grid;
+    gap: clamp(2.5rem, 7vw, 5rem);
+    padding-block: clamp(3rem, 8vw, 6rem);
+  }
+
+  .roadmap-groups:empty { display: none; }
+
+  .roadmap-group h2 {
+    margin-bottom: 1.25rem;
+    font-size: clamp(1.75rem, 4vw, 2.5rem);
+    letter-spacing: -.04em;
+  }
+
+  .roadmap-items {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 25rem), 1fr));
+    gap: 1rem;
+  }
+
+  .roadmap-item {
+    min-width: 0;
+    padding: clamp(1.25rem, 4vw, 2rem);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: var(--surface);
+  }
+
+  .roadmap-item h3 {
+    margin-bottom: .6rem;
+    font-size: 1.25rem;
+  }
+
+  .roadmap-copy {
+    color: var(--muted);
+    line-height: 1.65;
+    overflow-wrap: anywhere;
+  }
+
+  .roadmap-copy > :global(* + *) { margin-top: .75em; }
+  .roadmap-copy :global(ul), .roadmap-copy :global(ol) { padding-inline-start: 1.5em; }
+  .roadmap-copy :global(ul) { list-style: disc; }
+  .roadmap-copy :global(ol) { list-style: decimal; }
+  .roadmap-copy :global(pre) { overflow-x: auto; }
+  .roadmap-copy :global(a) { color: var(--accent-dark); text-decoration: underline; }
+</style>

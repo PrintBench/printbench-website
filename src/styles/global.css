@@ -56,11 +56,12 @@
   .nav-wrap { display: flex; height: 78px; align-items: center; }
   .logo-link { color: #f3f7f7; }
   .desktop-nav { display: flex; align-items: center; gap: 2rem; margin-left: auto; }
-  .desktop-nav a { position: relative; color: #a8b7bd; font-size: .875rem; font-weight: 520; transition: color .2s ease; }
+  .desktop-nav a { position: relative; color: #a8b7bd; font-size: .875rem; font-weight: 520; white-space: nowrap; transition: color .2s ease; }
   .desktop-nav a::after { content: ''; position: absolute; right: 0; bottom: -8px; left: 0; height: 1px; transform: scaleX(0); background: var(--brand-teal); transition: transform .2s ease; }
   .desktop-nav a:hover { color: #fff; }
   .desktop-nav a:hover::after { transform: scaleX(1); }
   .nav-with-icon { display: inline-flex; align-items: center; gap: .5rem; white-space: nowrap; }
+  .desktop-nav a[aria-current="page"], .mobile-nav a[aria-current="page"] { color: #69d3c6; }
   .site-header .github-stars { --star-divider: rgba(255,255,255,.2); --star-icon: #e5bd68; color: #edf4f4; }
   .nav-cta { display: inline-flex; height: 38px; align-items: center; gap: .5rem; margin-left: 2rem; padding: 0 1rem; border: 1px solid rgba(255,255,255,.17); border-radius: 9px; color: #edf4f4; font-size: .82rem; font-weight: 650; transition: border-color .2s ease, background .2s ease; }
   .nav-cta:hover { border-color: rgba(255,255,255,.32); background: rgba(255,255,255,.06); }
@@ -295,6 +296,8 @@
 
 @layer utilities {
   @media (max-width: 1050px) {
+    .desktop-nav { gap: 1.125rem; }
+    .nav-cta { margin-left: 1.25rem; white-space: nowrap; }
     .hero { grid-template-columns: 1fr 1.08fr; gap: 2rem; }
     .hero-visual { width: 120%; }
     .intro-heading { gap: 3rem; }
