@@ -2,56 +2,20 @@
 import BaseLayout from '../layouts/BaseLayout.astro'
 import GitHubStars from '../components/GitHubStars.astro'
 import Icon from '../components/Icon.astro'
-import Logo from '../components/Logo.astro'
 import ProductPreview from '../components/ProductPreview.astro'
+import SiteFooter from '../components/SiteFooter.astro'
+import SiteHeader from '../components/SiteHeader.astro'
 
 const github = 'https://github.com/PrintBench/printbench'
 const githubApi = `https://api.github.com/repos${new URL(github).pathname}`
 const docs = 'https://docs.printbench.app'
-const discord = 'https://discord.gg/6xwqYj4Rh'
 const composeDownload = `${github}/releases/latest/download/compose.yaml`
 ---
 
 <BaseLayout>
   <a class="skip-link" href="#main">Skip to content</a>
 
-    <header class="site-header" data-header>
-      <div class="nav-wrap container">
-        <a class="logo-link" href="#top" aria-label="PrintBench home"><Logo gradientId="header-logo-gradient" /></a>
-        <nav class="desktop-nav" aria-label="Main navigation">
-          <a href="#features">Features</a>
-          <a href="#workflow">How it works</a>
-          <a href={docs}>Documentation</a>
-          <a class="nav-with-icon" href={discord} target="_blank" rel="noreferrer">
-            <Icon name="discord" size={17} /> Discord
-          </a>
-          <a class="nav-with-icon" href={github} target="_blank" rel="noreferrer">
-            <Icon name="github" size={17} /> GitHub <GitHubStars apiUrl={githubApi} />
-          </a>
-        </nav>
-        <a class="nav-cta" href="#get-started">
-          <span>Get started</span>
-          <Icon name="arrow-right" size={16} />
-        </a>
-        <button class="menu-button" type="button" aria-expanded="false" aria-controls="mobile-nav" data-menu-button>
-          <span class="sr-only">Open navigation</span>
-          <span class="menu-open"><Icon name="menu" size={21} /></span>
-          <span class="menu-close"><Icon name="x" size={21} /></span>
-        </button>
-      </div>
-      <nav class="mobile-nav" id="mobile-nav" aria-label="Mobile navigation" data-mobile-nav>
-        <a href="#features">Features</a>
-        <a href="#workflow">How it works</a>
-        <a href={docs}>Documentation</a>
-        <a href="#get-started">Get started</a>
-        <a href={discord} target="_blank" rel="noreferrer">
-          <Icon name="discord" size={17} /> Discord
-        </a>
-        <a href={github} target="_blank" rel="noreferrer">
-          <Icon name="github" size={17} /> View on GitHub <GitHubStars apiUrl={githubApi} />
-        </a>
-      </nav>
-    </header>
+    <SiteHeader />
 
     <main id="main">
       <div class="hero-shell">
@@ -290,59 +254,9 @@ const composeDownload = `${github}/releases/latest/download/compose.yaml`
       </section>
     </main>
 
-    <footer>
-      <div class="footer-main container">
-        <div class="footer-brand"><Logo gradientId="footer-logo-gradient" /><p>A calmer home for every model,<br />file and finished print.</p></div>
-        <div class="footer-links"><div><strong>Product</strong><a href="#features">Features</a><a href="#workflow">How it works</a><a href="#get-started">Get started</a></div><div><strong>Project</strong><a href={github} target="_blank" rel="noreferrer">GitHub</a><a href={`${github}/blob/main/CONTRIBUTING.md`} target="_blank" rel="noreferrer">Contributing</a><a href={`${github}/blob/main/SECURITY.md`} target="_blank" rel="noreferrer">Security</a></div><div><strong>Resources</strong><a href={docs}>Documentation</a><a href={`${docs}/deploy/`}>Deployment</a><a href={`${github}/issues`} target="_blank" rel="noreferrer">Issues</a><a href={`${github}/blob/main/LICENSE`} target="_blank" rel="noreferrer">MIT license</a></div></div>
-      </div>
-      <div class="footer-bottom container"><p>© 2026 PrintBench. Open source under the MIT License.</p><a href={github} target="_blank" rel="noreferrer"><Icon name="github" size={16} /> PrintBench on GitHub</a></div>
-    </footer>
+    <SiteFooter />
 
   <script>
-    const githubStarBadges = document.querySelectorAll<HTMLElement>('[data-github-stars]')
-    const githubApi = githubStarBadges[0]?.dataset.githubStars
-
-    if (githubApi) {
-      fetch(githubApi, { credentials: 'omit', referrerPolicy: 'no-referrer' })
-        .then(async (response) => {
-          if (!response.ok) return
-          const { stargazers_count: count } = await response.json()
-          if (!Number.isSafeInteger(count) || count < 0) return
-
-          const formatted = new Intl.NumberFormat(document.documentElement.lang).format(count)
-          const label = `${formatted} ${count === 1 ? 'GitHub star' : 'GitHub stars'}`
-
-          githubStarBadges.forEach((badge) => {
-            const starCount = badge.querySelector('[data-star-count]')
-            const starLabel = badge.querySelector('[data-star-label]')
-            if (!starCount || !starLabel) return
-
-            starCount.textContent = formatted
-            starLabel.textContent = label
-            badge.hidden = false
-          })
-        })
-        .catch(() => {
-          // The repository link remains available if GitHub cannot be reached.
-        })
-    }
-
-    const menuButton = document.querySelector<HTMLButtonElement>('[data-menu-button]')
-    const mobileNav = document.querySelector<HTMLElement>('[data-mobile-nav]')
-
-    const closeMenu = () => {
-      menuButton?.setAttribute('aria-expanded', 'false')
-      mobileNav?.classList.remove('is-open')
-    }
-
-    menuButton?.addEventListener('click', () => {
-      const open = menuButton.getAttribute('aria-expanded') === 'true'
-      menuButton.setAttribute('aria-expanded', String(!open))
-      mobileNav?.classList.toggle('is-open', !open)
-    })
-
-    mobileNav?.querySelectorAll('a').forEach((link) => link.addEventListener('click', closeMenu))
-
     const copyButton = document.querySelector<HTMLButtonElement>('[data-copy-button]')
     const copySource = document.querySelector<HTMLElement>('[data-copy-source]')
     copyButton?.addEventListener('click', async () => {
