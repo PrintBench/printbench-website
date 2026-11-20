@@ -19,15 +19,26 @@ const statuses = [
 ] as const
 
 const entries = await getCollection('roadmap')
-entries.sort((a, b) => a.data.order - b.data.order || a.id.localeCompare(b.id, 'en'))
+const versionOrder = new Intl.Collator('en', { numeric: true })
 
 const groups = await Promise.all(statuses.map(async (status) => {
-  const items = await Promise.all(
-    entries.filter((entry) => entry.data.status === status.id).map(async (entry) => {
-      const { Content } = await render(entry)
-      return { title: entry.data.title, Content }
-    }),
-  )
+  const isShipped = status.id === 'shipped'
+  const groupEntries = entries.filter((entry) => entry.data.status === status.id)
+
+  groupEntries.sort((a, b) => {
+    if (isShipped) {
+      const byVersion = versionOrder.compare(b.data.version ?? '', a.data.version ?? '')
+      if (byVersion) return byVersion
+    }
+
+    return a.data.order - b.data.order || a.id.localeCompare(b.id, 'en')
+  })
+
+  const items = await Promise.all(groupEntries.map(async (entry) => {
+    const { Content } = await render(entry)
+    return { title: entry.data.title, version: isShipped ? entry.data.version : undefined, Content }
+  }))
+
   return { ...status, items }
 }))
 ---
@@ -49,9 +60,16 @@ const groups = await Promise.all(statuses.map(async (status) => {
         <section class="roadmap-group" aria-labelledby={id}>
           <h2 id={id}>{label}</h2>
           <div class="roadmap-items">
-            {items.map(({ title, Content }) => (
+            {items.map(({ title, version, Content }) => (
               <article class="roadmap-item">
-                <h3>{title}</h3>
+                <div class="roadmap-item-heading">
+                  <h3>{title}</h3>
+                  {version && (
+                    <a class="roadmap-version" href={`https://docs.printbench.app/releases/${version}`} aria-label={`Release notes for ${version}`}>
+                      {version}
+                    </a>
+                  )}
+                </div>
                 <div class="roadmap-copy"><Content /></div>
               </article>
             ))}
@@ -113,10 +131,29 @@ const groups = await Promise.all(statuses.map(async (status) => {
     background: var(--surface);
   }
 
-  .roadmap-item h3 {
+  .roadmap-item-heading {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: .4rem 1rem;
     margin-bottom: .6rem;
+  }
+
+  .roadmap-item h3 {
     font-size: 1.25rem;
   }
+
+  .roadmap-version {
+    flex: none;
+    padding: .25rem .55rem;
+    border-radius: 6px;
+    background: var(--surface-soft);
+    color: var(--accent-dark);
+    font: 650 .75rem/1.35 var(--mono);
+  }
+
+  .roadmap-version:hover { text-decoration: underline; }
 
   .roadmap-copy {
     color: var(--muted);

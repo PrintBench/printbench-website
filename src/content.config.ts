@@ -7,6 +7,7 @@ const roadmap = defineCollection({
   schema: z.object({
     title: z.string().trim().min(1),
     status: z.enum(['in-progress', 'planned', 'shipped']),
+    version: z.string().regex(/^v\d+\.\d+\.\d+$/).optional(),
     order: z.number().int().default(0),
   }),
 })

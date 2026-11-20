@@ -1,6 +1,7 @@
 ---
 title: Multiple source links per model
 status: shipped
+version: v0.7.5
 order: 20
 ---
 

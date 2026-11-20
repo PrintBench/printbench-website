@@ -1,6 +1,7 @@
 ---
 title: One-command Docker setup
 status: shipped
+version: v0.7.6
 order: 10
 ---
 
