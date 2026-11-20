@@ -248,6 +248,7 @@
   .install-copy, .terminal-wrap { min-width: 0; }
   .install-copy h2 { margin-top: 1.4rem; font-size: clamp(2.4rem, 4vw, 3.75rem); }
   .install-copy > p { margin-top: 1.3rem; color: var(--muted); font-size: .92rem; line-height: 1.7; }
+  .install-copy > p a { color: var(--accent-dark); font-weight: 650; text-decoration: underline; }
   .install-copy ul { display: grid; gap: .7rem; margin-top: 1.5rem; color: #56666c; font-size: .76rem; }
   .install-copy li { display: flex; align-items: center; gap: .55rem; }
   .install-copy li svg { color: var(--accent); }
@@ -260,13 +261,11 @@
   .terminal-bar > span:nth-child(3) { background: #4caf7c; }
   .terminal-bar small { margin-left: 1rem; color: #61737c; font: .63rem var(--mono); }
   .terminal-bar button { display: flex; align-items: center; gap: .35rem; margin-left: auto; padding: .35rem .5rem; border: 0; border-radius: 5px; background: rgba(255,255,255,.05); color: #81929a; font-size: .61rem; cursor: pointer; }
-  .terminal pre { min-height: 300px; padding: 1.6rem; overflow-x: auto; color: #c5d1d4; font: .72rem/1.85 var(--mono); }
-  .terminal .comment { color: #53666f; }
+  .terminal pre { padding: 1.6rem; overflow-x: auto; color: #c5d1d4; font: .72rem/1.85 var(--mono); }
   .terminal .prompt { color: #49c9b9; user-select: none; }
   .terminal-status { display: flex; align-items: center; justify-content: space-between; padding: .8rem 1rem; border-top: 1px solid rgba(255,255,255,.07); background: rgba(28, 63, 63, .18); font-size: .62rem; }
   .terminal-status > span { display: flex; align-items: center; gap: .5rem; color: #72c5b9; }
-  .terminal-status i { width: 6px; height: 6px; border-radius: 50%; background: #4fd0ae; box-shadow: 0 0 0 4px rgba(79,208,174,.1); }
-  .terminal-status a { display: flex; align-items: center; gap: .3rem; color: #70858e; }
+  .terminal-status a { display: flex; align-items: center; gap: .3rem; color: #bcc9cc; text-decoration: underline; }
 
   .faq { display: grid; grid-template-columns: .8fr 1.2fr; gap: 7rem; padding-top: 4rem; padding-bottom: 8rem; }
   .faq-heading h2 { margin-top: 1.4rem; font-size: clamp(2.4rem, 4vw, 3.8rem); }
@@ -369,8 +368,8 @@
     .stack-row { margin-inline: .8rem; }
     .stack-row > b { display: none; }
     .install-panel { gap: 3rem; padding: 1.5rem; border-radius: 20px; }
-    .terminal pre { min-height: 275px; padding: 1rem; font-size: .61rem; }
-    .terminal-status a { display: none; }
+    .terminal pre { padding: 1rem; font-size: .61rem; }
+    .terminal-status { flex-wrap: wrap; gap: .4rem; }
     .faq { padding-bottom: 6rem; }
     .footer-main { grid-template-columns: 1fr; gap: 3rem; padding-block: 3.5rem; }
     .footer-links { gap: 1rem; }

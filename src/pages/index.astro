@@ -8,6 +8,7 @@ import ProductPreview from '../components/ProductPreview.astro'
 const github = 'https://github.com/PrintBench/printbench'
 const githubApi = `https://api.github.com/repos${new URL(github).pathname}`
 const docs = 'https://docs.printbench.app'
+const composeDownload = `${github}/releases/latest/download/compose.yaml`
 ---
 
 <BaseLayout>
@@ -253,7 +254,7 @@ const docs = 'https://docs.printbench.app'
           <div class="install-copy">
             <div class="section-kicker"><span>05</span> Start your workspace</div>
             <h2>Bring your library<br /><em>to the bench.</em></h2>
-            <p>Docker Compose gets PrintBench and Postgres running together. Add your secrets, point it at a folder, and open the setup screen.</p>
+            <p>With Docker and Compose installed, <a href={composeDownload}>download <code>compose.yaml</code></a> into an empty folder and run the command in that folder. Then open PrintBench and create your admin account.</p>
             <ul>
               <li><Icon name="check" size={15} /> No Redis or message broker</li>
               <li><Icon name="check" size={15} /> Clear backup and upgrade path</li>
@@ -263,17 +264,9 @@ const docs = 'https://docs.printbench.app'
           </div>
           <div class="terminal-wrap">
             <div class="terminal">
-              <div class="terminal-bar"><span></span><span></span><span></span><small>Quick start</small><button type="button" data-copy-button aria-label="Copy quick start commands"><Icon name="code" size={15} /><span>Copy</span></button></div>
-              <pre data-copy-source><code><span class="comment"># Get PrintBench</span>
-<span class="prompt">$</span> git clone https://github.com/PrintBench/printbench.git
-<span class="prompt">$</span> cd printbench
-
-<span class="comment"># Configure your instance</span>
-<span class="prompt">$</span> cp .env.example .env
-
-<span class="comment"># Start the workspace</span>
-<span class="prompt">$</span> docker compose up -d</code></pre>
-              <div class="terminal-status"><span><i></i> PrintBench is running</span><a href="http://localhost:8080">localhost:8080 <Icon name="arrow-right" size={13} /></a></div>
+              <div class="terminal-bar"><span></span><span></span><span></span><small>Quick start</small><button type="button" data-copy-button aria-label="Copy quick start command"><Icon name="code" size={15} /><span>Copy</span></button></div>
+              <pre data-copy-source><code><span class="prompt">$</span> docker compose up -d</code></pre>
+              <div class="terminal-status"><span>Open PrintBench after startup</span><a href="http://localhost:8080">localhost:8080 <Icon name="arrow-right" size={13} /></a></div>
             </div>
           </div>
         </div>
