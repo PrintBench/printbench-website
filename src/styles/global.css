@@ -60,7 +60,7 @@
   .desktop-nav a::after { content: ''; position: absolute; right: 0; bottom: -8px; left: 0; height: 1px; transform: scaleX(0); background: var(--brand-teal); transition: transform .2s ease; }
   .desktop-nav a:hover { color: #fff; }
   .desktop-nav a:hover::after { transform: scaleX(1); }
-  .nav-github { display: inline-flex; align-items: center; gap: .5rem; white-space: nowrap; }
+  .nav-with-icon { display: inline-flex; align-items: center; gap: .5rem; white-space: nowrap; }
   .site-header .github-stars { --star-divider: rgba(255,255,255,.2); --star-icon: #e5bd68; color: #edf4f4; }
   .nav-cta { display: inline-flex; height: 38px; align-items: center; gap: .5rem; margin-left: 2rem; padding: 0 1rem; border: 1px solid rgba(255,255,255,.17); border-radius: 9px; color: #edf4f4; font-size: .82rem; font-weight: 650; transition: border-color .2s ease, background .2s ease; }
   .nav-cta:hover { border-color: rgba(255,255,255,.32); background: rgba(255,255,255,.06); }
