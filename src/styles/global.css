@@ -56,10 +56,13 @@
   .nav-wrap { display: flex; height: 78px; align-items: center; }
   .logo-link { color: #f3f7f7; }
   .desktop-nav { display: flex; align-items: center; gap: 2rem; margin-left: auto; }
-  .desktop-nav a { position: relative; color: #a8b7bd; font-size: .875rem; font-weight: 520; transition: color .2s ease; }
+  .desktop-nav a { position: relative; color: #a8b7bd; font-size: .875rem; font-weight: 520; white-space: nowrap; transition: color .2s ease; }
   .desktop-nav a::after { content: ''; position: absolute; right: 0; bottom: -8px; left: 0; height: 1px; transform: scaleX(0); background: var(--brand-teal); transition: transform .2s ease; }
   .desktop-nav a:hover { color: #fff; }
   .desktop-nav a:hover::after { transform: scaleX(1); }
+  .nav-with-icon { display: inline-flex; align-items: center; gap: .5rem; white-space: nowrap; }
+  .desktop-nav a[aria-current="page"], .mobile-nav a[aria-current="page"] { color: #69d3c6; }
+  .site-header .github-stars { --star-divider: rgba(255,255,255,.2); --star-icon: #e5bd68; color: #edf4f4; }
   .nav-cta { display: inline-flex; height: 38px; align-items: center; gap: .5rem; margin-left: 2rem; padding: 0 1rem; border: 1px solid rgba(255,255,255,.17); border-radius: 9px; color: #edf4f4; font-size: .82rem; font-weight: 650; transition: border-color .2s ease, background .2s ease; }
   .nav-cta:hover { border-color: rgba(255,255,255,.32); background: rgba(255,255,255,.06); }
   .menu-button { display: none; width: 40px; height: 40px; place-items: center; margin-left: auto; border: 1px solid rgba(255,255,255,.15); border-radius: 9px; background: transparent; color: #fff; }
@@ -216,8 +219,11 @@
   .open-grid { position: relative; display: grid; grid-template-columns: .85fr 1.15fr; align-items: center; gap: 8rem; }
   .open-copy h2 { margin-top: 1.5rem; }
   .open-copy > p { max-width: 520px; margin-top: 1.4rem; color: #93a3aa; line-height: 1.75; }
-  .open-actions { display: flex; align-items: center; gap: 1.5rem; margin-top: 2rem; }
+  .open-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 1.5rem; margin-top: 2rem; }
   .button-light { background: #edf6f4; color: #17272c; }
+  .github-stars:not([hidden]) { display: inline-flex; align-items: center; gap: .35rem; padding-left: .6rem; border-left: 1px solid var(--star-divider, #bacdca); font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .github-stars svg { color: var(--star-icon, #82611d); }
+  .button-light .github-stars { color: #365453; }
   .open-link { display: inline-flex; align-items: center; gap: .4rem; color: #9fc2bf; font-size: .85rem; font-weight: 650; }
   .license-note { display: flex; align-items: center; gap: .75rem; margin-top: 2.4rem; color: #647780; }
   .license-note svg { color: #4bc8b8; }
@@ -246,6 +252,7 @@
   .install-copy, .terminal-wrap { min-width: 0; }
   .install-copy h2 { margin-top: 1.4rem; font-size: clamp(2.4rem, 4vw, 3.75rem); }
   .install-copy > p { margin-top: 1.3rem; color: var(--muted); font-size: .92rem; line-height: 1.7; }
+  .install-copy > p a { color: var(--accent-dark); font-weight: 650; text-decoration: underline; }
   .install-copy ul { display: grid; gap: .7rem; margin-top: 1.5rem; color: #56666c; font-size: .76rem; }
   .install-copy li { display: flex; align-items: center; gap: .55rem; }
   .install-copy li svg { color: var(--accent); }
@@ -258,13 +265,11 @@
   .terminal-bar > span:nth-child(3) { background: #4caf7c; }
   .terminal-bar small { margin-left: 1rem; color: #61737c; font: .63rem var(--mono); }
   .terminal-bar button { display: flex; align-items: center; gap: .35rem; margin-left: auto; padding: .35rem .5rem; border: 0; border-radius: 5px; background: rgba(255,255,255,.05); color: #81929a; font-size: .61rem; cursor: pointer; }
-  .terminal pre { min-height: 300px; padding: 1.6rem; overflow-x: auto; color: #c5d1d4; font: .72rem/1.85 var(--mono); }
-  .terminal .comment { color: #53666f; }
+  .terminal pre { padding: 1.6rem; overflow-x: auto; color: #c5d1d4; font: .72rem/1.85 var(--mono); }
   .terminal .prompt { color: #49c9b9; user-select: none; }
   .terminal-status { display: flex; align-items: center; justify-content: space-between; padding: .8rem 1rem; border-top: 1px solid rgba(255,255,255,.07); background: rgba(28, 63, 63, .18); font-size: .62rem; }
   .terminal-status > span { display: flex; align-items: center; gap: .5rem; color: #72c5b9; }
-  .terminal-status i { width: 6px; height: 6px; border-radius: 50%; background: #4fd0ae; box-shadow: 0 0 0 4px rgba(79,208,174,.1); }
-  .terminal-status a { display: flex; align-items: center; gap: .3rem; color: #70858e; }
+  .terminal-status a { display: flex; align-items: center; gap: .3rem; color: #bcc9cc; text-decoration: underline; }
 
   .faq { display: grid; grid-template-columns: .8fr 1.2fr; gap: 7rem; padding-top: 4rem; padding-bottom: 8rem; }
   .faq-heading h2 { margin-top: 1.4rem; font-size: clamp(2.4rem, 4vw, 3.8rem); }
@@ -294,6 +299,8 @@
 
 @layer utilities {
   @media (max-width: 1050px) {
+    .desktop-nav { gap: 1.125rem; }
+    .nav-cta { margin-left: 1.25rem; white-space: nowrap; }
     .hero { grid-template-columns: 1fr 1.08fr; gap: 2rem; }
     .hero-visual { width: 120%; }
     .intro-heading { gap: 3rem; }
@@ -367,8 +374,8 @@
     .stack-row { margin-inline: .8rem; }
     .stack-row > b { display: none; }
     .install-panel { gap: 3rem; padding: 1.5rem; border-radius: 20px; }
-    .terminal pre { min-height: 275px; padding: 1rem; font-size: .61rem; }
-    .terminal-status a { display: none; }
+    .terminal pre { padding: 1rem; font-size: .61rem; }
+    .terminal-status { flex-wrap: wrap; gap: .4rem; }
     .faq { padding-bottom: 6rem; }
     .footer-main { grid-template-columns: 1fr; gap: 3rem; padding-block: 3.5rem; }
     .footer-links { gap: 1rem; }

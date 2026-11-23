@@ -1,0 +1,15 @@
+---
+import Icon from './Icon.astro'
+
+interface Props {
+  apiUrl: string
+}
+
+const { apiUrl } = Astro.props
+---
+
+<span class="github-stars" data-github-stars={apiUrl} hidden>
+  <Icon name="star" size={15} />
+  <span data-star-count aria-hidden="true"></span>
+  <span class="sr-only" data-star-label></span>
+</span>
