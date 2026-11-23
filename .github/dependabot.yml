@@ -1,0 +1,29 @@
+version: 2
+
+updates:
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 5
+    # `@astrojs/check` and `typescript` are declared as `latest`, so the lockfile is
+    # what actually pins them. Grouping keeps one weekly PR instead of one per package;
+    # the verify job is the gate, since a bump that breaks `astro check` fails there.
+    groups:
+      minor-and-patch:
+        update-types: [minor, patch]
+
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+
+  - package-ecosystem: docker
+    directory: /
+    schedule:
+      interval: weekly
+    ignore:
+      # The Node major in the Dockerfile must match `node-version` in ci.yml, so a
+      # Node major bump is a deliberate two-file change, not a bot PR.
+      - dependency-name: node
+        update-types: [version-update:semver-major]
