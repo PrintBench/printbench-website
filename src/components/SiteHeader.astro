@@ -15,6 +15,7 @@ const isRoadmap = Astro.url.pathname.replace(/\/$/, '') === '/roadmap'
     <a class="logo-link" href="/" aria-label="PrintBench home"><Logo gradientId="header-logo-gradient" /></a>
     <nav class="desktop-nav" aria-label="Main navigation">
       <a href="/#features">Features</a>
+      <a href="/#screenshots">Screenshots</a>
       <a href="/#workflow">How it works</a>
       <a href="/roadmap/" aria-current={isRoadmap ? 'page' : undefined}>Roadmap</a>
       <a href={docs}>Documentation</a>
@@ -37,6 +38,7 @@ const isRoadmap = Astro.url.pathname.replace(/\/$/, '') === '/roadmap'
   </div>
   <nav class="mobile-nav" id="mobile-nav" aria-label="Mobile navigation" data-mobile-nav>
     <a href="/#features">Features</a>
+    <a href="/#screenshots">Screenshots</a>
     <a href="/#workflow">How it works</a>
     <a href="/roadmap/" aria-current={isRoadmap ? 'page' : undefined}>Roadmap</a>
     <a href={docs}>Documentation</a>
