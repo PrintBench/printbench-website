@@ -3,6 +3,7 @@ import BaseLayout from '../layouts/BaseLayout.astro'
 import Icon from '../components/Icon.astro'
 import Logo from '../components/Logo.astro'
 import ProductPreview from '../components/ProductPreview.astro'
+import ScreenshotGallery from '../components/ScreenshotGallery.astro'
 
 const github = 'https://github.com/PrintBench/printbench'
 const docs = 'https://docs.printbench.app'
@@ -16,6 +17,7 @@ const docs = 'https://docs.printbench.app'
         <a class="logo-link" href="#top" aria-label="PrintBench home"><Logo gradientId="header-logo-gradient" /></a>
         <nav class="desktop-nav" aria-label="Main navigation">
           <a href="#features">Features</a>
+          <a href="#screenshots">Screenshots</a>
           <a href="#workflow">How it works</a>
           <a href={docs}>Documentation</a>
         </nav>
@@ -31,6 +33,7 @@ const docs = 'https://docs.printbench.app'
       </div>
       <nav class="mobile-nav" id="mobile-nav" aria-label="Mobile navigation" data-mobile-nav>
         <a href="#features">Features</a>
+        <a href="#screenshots">Screenshots</a>
         <a href="#workflow">How it works</a>
         <a href={docs}>Documentation</a>
         <a href="#get-started">Get started</a>
@@ -195,9 +198,20 @@ const docs = 'https://docs.printbench.app'
         </div>
       </section>
 
+      <section class="screenshots section" id="screenshots">
+        <div class="container">
+          <div class="section-heading centered">
+            <div class="section-kicker light"><span>03</span> See it in action</div>
+            <h2>Your library, <em>as it really looks.</em></h2>
+            <p>Real screens from a running PrintBench instance. Tap or click any screenshot to take a closer look.</p>
+          </div>
+          <ScreenshotGallery />
+        </div>
+      </section>
+
       <section class="steps section container" id="workflow">
         <div class="steps-heading">
-          <div class="section-kicker"><span>03</span> From folder to workspace</div>
+          <div class="section-kicker"><span>04</span> From folder to workspace</div>
           <h2>Up and running in<br /><em>three quiet steps.</em></h2>
           <p>PrintBench works with the library you already have. No migration project required.</p>
         </div>
@@ -223,7 +237,7 @@ const docs = 'https://docs.printbench.app'
       <section class="open-source section" id="open-source">
         <div class="open-grid container">
           <div class="open-copy">
-            <div class="section-kicker light"><span>04</span> Open by design</div>
+            <div class="section-kicker light"><span>05</span> Open by design</div>
             <h2>Your workshop.<br />Your data. <em>Your code.</em></h2>
             <p>PrintBench is free, open source and self-hosted. Run it on hardware you control, inspect every line, and shape it around your bench.</p>
             <div class="open-actions">
@@ -246,7 +260,7 @@ const docs = 'https://docs.printbench.app'
       <section class="get-started section container" id="get-started">
         <div class="install-panel">
           <div class="install-copy">
-            <div class="section-kicker"><span>05</span> Start your workspace</div>
+            <div class="section-kicker"><span>06</span> Start your workspace</div>
             <h2>Bring your library<br /><em>to the bench.</em></h2>
             <p>Docker Compose gets PrintBench and Postgres running together. Add your secrets, point it at a folder, and open the setup screen.</p>
             <ul>
@@ -288,7 +302,7 @@ const docs = 'https://docs.printbench.app'
     <footer>
       <div class="footer-main container">
         <div class="footer-brand"><Logo gradientId="footer-logo-gradient" /><p>A calmer home for every model,<br />file and finished print.</p></div>
-        <div class="footer-links"><div><strong>Product</strong><a href="#features">Features</a><a href="#workflow">How it works</a><a href="#get-started">Get started</a></div><div><strong>Project</strong><a href={github} target="_blank" rel="noreferrer">GitHub</a><a href={`${github}/blob/main/CONTRIBUTING.md`} target="_blank" rel="noreferrer">Contributing</a><a href={`${github}/blob/main/SECURITY.md`} target="_blank" rel="noreferrer">Security</a></div><div><strong>Resources</strong><a href={docs}>Documentation</a><a href={`${docs}/deploy/`}>Deployment</a><a href={`${github}/issues`} target="_blank" rel="noreferrer">Issues</a><a href={`${github}/blob/main/LICENSE`} target="_blank" rel="noreferrer">MIT license</a></div></div>
+        <div class="footer-links"><div><strong>Product</strong><a href="#features">Features</a><a href="#screenshots">Screenshots</a><a href="#workflow">How it works</a><a href="#get-started">Get started</a></div><div><strong>Project</strong><a href={github} target="_blank" rel="noreferrer">GitHub</a><a href={`${github}/blob/main/CONTRIBUTING.md`} target="_blank" rel="noreferrer">Contributing</a><a href={`${github}/blob/main/SECURITY.md`} target="_blank" rel="noreferrer">Security</a></div><div><strong>Resources</strong><a href={docs}>Documentation</a><a href={`${docs}/deploy/`}>Deployment</a><a href={`${github}/issues`} target="_blank" rel="noreferrer">Issues</a><a href={`${github}/blob/main/LICENSE`} target="_blank" rel="noreferrer">MIT license</a></div></div>
       </div>
       <div class="footer-bottom container"><p>© 2026 PrintBench. Open source under the MIT License.</p><a href={github} target="_blank" rel="noreferrer"><Icon name="github" size={16} /> PrintBench on GitHub</a></div>
     </footer>

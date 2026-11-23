@@ -1,0 +1,343 @@
+---
+// Screenshot gallery with a keyboard- and swipe-friendly lightbox.
+// Images live in /public/screenshots as <name>.webp (full size, shown in the
+// lightbox) and <name>-thumb.webp (grid). Desktop shots are 1920x1200 and
+// phone shots 780x1688; thumbnails keep the same aspect ratios.
+
+interface Shot {
+  id: string
+  title: string
+  caption: string
+  alt: string
+}
+
+const desktop: Shot[] = [
+  {
+    id: 'library',
+    title: 'Every model, at a glance',
+    caption: 'Automatic thumbnails turn folders of cryptic filenames into a library you can actually browse.',
+    alt: 'The PrintBench model library: a grid of rendered thumbnails for vases, gridfinity bins, a chess pawn and more.',
+  },
+  {
+    id: 'model-3d',
+    title: 'Inspect in 3D',
+    caption: 'Rotate and zoom any model in the browser, with creator, tags, licence and print history alongside.',
+    alt: 'A model page showing an interactive 3D preview of a spiral vase with its creator, collection, tags and licence.',
+  },
+  {
+    id: 'search',
+    title: 'Search that finds it',
+    caption: 'Typo-friendly search with facets for creator, tag, format and licence.',
+    alt: 'Search results for the word gift, with filters for creator, tag and format beside a grid of matching models.',
+  },
+  {
+    id: 'collection',
+    title: 'Collections, your way',
+    caption: 'Group models into projects, campaigns or wish lists. One model can live in as many as you like.',
+    alt: 'A collection called Workshop essentials showing six bins, trays and holders.',
+  },
+  {
+    id: 'queue',
+    title: 'A print queue for everyone',
+    caption: 'Requests carry priority, quantity, material and due date, from the model page to the printer.',
+    alt: 'The print queue listing requested prints with quantity, priority, who asked and when each is due.',
+  },
+  {
+    id: 'history',
+    title: 'Print history that remembers',
+    caption: 'Log what you printed, on which printer and filament, how it went and what to change next time.',
+    alt: 'Print history with settings, filament, duration, star ratings and notes for each completed print.',
+  },
+  {
+    id: 'filaments',
+    title: 'Know what is on the shelf',
+    caption: 'Track every spool and what is left on it, with a warning before a low roll ruins a print.',
+    alt: 'Filament inventory showing six spools with remaining weight, colour and a low stock warning on the gold spool.',
+  },
+]
+
+const phone: Shot[] = [
+  { id: 'mobile-library', title: 'Library', caption: 'The whole library, on your phone.', alt: 'The model library on a phone, in a two column grid of thumbnails.' },
+  { id: 'mobile-model-3d', title: '3D preview', caption: 'Pinch and drag to inspect a model at the printer.', alt: 'A model page on a phone with an interactive 3D preview.' },
+  { id: 'mobile-search', title: 'Search', caption: 'Find the right file without leaving the workshop.', alt: 'Search results on a phone.' },
+  { id: 'mobile-queue', title: 'Print queue', caption: 'Check what is next from anywhere in the house.', alt: 'The print queue on a phone.' },
+  { id: 'mobile-filaments', title: 'Filaments', caption: 'See what is left on a spool before you start.', alt: 'The filament inventory on a phone.' },
+]
+
+const D = { w: 960, h: 600, fw: 1920, fh: 1200 }
+const P = { w: 400, h: 866, fw: 780, fh: 1688 }
+---
+
+<div class="gallery">
+  <ul class="desktop-grid" aria-label="Desktop screenshots">
+    {desktop.map((shot, i) => (
+      <li class:list={['card', i === 0 && 'featured']}>
+        <button
+          type="button"
+          class="shot"
+          data-shot
+          data-full={`/screenshots/${shot.id}.webp`}
+          data-w={D.fw}
+          data-h={D.fh}
+          data-title={shot.title}
+          data-caption={shot.caption}
+          data-alt={shot.alt}
+          aria-label={`View larger: ${shot.title}`}
+        >
+          <img
+            src={`/screenshots/${shot.id}-thumb.webp`}
+            width={D.w}
+            height={D.h}
+            alt={shot.alt}
+            loading={i === 0 ? 'eager' : 'lazy'}
+            decoding="async"
+          />
+          <span class="zoom" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" /></svg>
+          </span>
+        </button>
+        <div class="meta"><h3>{shot.title}</h3><p>{shot.caption}</p></div>
+      </li>
+    ))}
+  </ul>
+
+  <div class="phone-head">
+    <h3>Just as comfortable on a phone</h3>
+    <p>The same workspace, laid out for a small screen. Handy at the printer.</p>
+  </div>
+  <ul class="phone-row" aria-label="Mobile screenshots" tabindex="-1">
+    {phone.map((shot) => (
+      <li class="phone-card">
+        <button
+          type="button"
+          class="shot phone-shot"
+          data-shot
+          data-full={`/screenshots/${shot.id}.webp`}
+          data-w={P.fw}
+          data-h={P.fh}
+          data-title={shot.title}
+          data-caption={shot.caption}
+          data-alt={shot.alt}
+          aria-label={`View larger: ${shot.title} on mobile`}
+        >
+          <img src={`/screenshots/${shot.id}-thumb.webp`} width={P.w} height={P.h} alt={shot.alt} loading="lazy" decoding="async" />
+        </button>
+        <span class="phone-label">{shot.title}</span>
+      </li>
+    ))}
+  </ul>
+</div>
+
+<dialog class="lightbox" data-lightbox aria-label="Screenshot viewer">
+  <div class="lb-bar">
+    <span class="lb-count" data-lb-count aria-live="polite"></span>
+    <span class="lb-hint" data-lb-hint hidden>Drag sideways to pan</span>
+    <button type="button" class="lb-btn" data-lb-close aria-label="Close viewer">
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12" /></svg>
+    </button>
+  </div>
+  <button type="button" class="lb-btn lb-nav lb-prev" data-lb-prev aria-label="Previous screenshot">
+    <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6" /></svg>
+  </button>
+  <figure class="lb-stage" data-lb-stage>
+    <div class="lb-scroll" data-lb-scroll><img data-lb-img alt="" /></div>
+    <figcaption><strong data-lb-title></strong><span data-lb-caption></span></figcaption>
+  </figure>
+  <button type="button" class="lb-btn lb-nav lb-next" data-lb-next aria-label="Next screenshot">
+    <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6" /></svg>
+  </button>
+</dialog>
+
+<style>
+  .gallery { display: grid; gap: 4.5rem; }
+
+  /* ---- desktop grid ---- */
+  .desktop-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 2.4rem 1.6rem; }
+  .card.featured { grid-column: 1 / -1; }
+  .shot {
+    position: relative; display: block; width: 100%; padding: 0; overflow: hidden; cursor: zoom-in;
+    border: 1px solid rgba(185, 207, 214, .16); border-radius: 16px; background: #0c1218; color: inherit;
+    box-shadow: 0 30px 60px rgba(0, 0, 0, .35);
+    transition: transform .35s cubic-bezier(.2, .8, .2, 1), border-color .25s ease, box-shadow .35s ease;
+  }
+  .shot img { width: 100%; height: auto; }
+  .shot:hover { transform: translateY(-4px); border-color: rgba(43, 191, 156, .45); box-shadow: 0 38px 70px rgba(0, 0, 0, .45); }
+  .shot:focus-visible { outline-offset: 4px; border-radius: 16px; }
+  .zoom {
+    position: absolute; top: .85rem; right: .85rem; display: grid; width: 34px; height: 34px; place-items: center;
+    border-radius: 50%; background: rgba(10, 16, 21, .72); color: #cfe9e5; opacity: 0; backdrop-filter: blur(6px);
+    transition: opacity .2s ease;
+  }
+  .shot:hover .zoom, .shot:focus-visible .zoom { opacity: 1; }
+  @media (hover: none) { .zoom { opacity: 1; } }
+
+  .meta { padding: 1.1rem .2rem 0; }
+  .meta h3 { color: #f0f6f6; font-size: 1.15rem; font-weight: 650; letter-spacing: -.02em; }
+  .meta p { max-width: 52ch; margin-top: .4rem; color: #8ea0a8; font-size: .92rem; line-height: 1.6; }
+  .featured .meta h3 { font-size: 1.35rem; }
+
+  /* ---- phones ---- */
+  .phone-head { text-align: center; }
+  .phone-head h3 { color: #f0f6f6; font-size: clamp(1.5rem, 3vw, 2rem); font-weight: 650; letter-spacing: -.03em; }
+  .phone-head p { margin-top: .6rem; color: #8ea0a8; }
+  .phone-row { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 1.4rem; margin-top: -2.5rem; }
+  .phone-card { display: grid; gap: .9rem; text-align: center; }
+  .phone-shot { aspect-ratio: 400 / 866; border-radius: 22px; border-width: 4px; border-color: #26323b; background: #0a1016; }
+  .phone-shot img { height: 100%; object-fit: cover; object-position: top; }
+  .phone-label { color: #aab9bf; font-size: .82rem; font-weight: 600; }
+
+  @media (max-width: 900px) {
+    .gallery { gap: 3.5rem; }
+    .phone-row {
+      display: flex; gap: 1rem; margin-inline: -16px; padding: .5rem 16px 1rem; overflow-x: auto;
+      scroll-snap-type: x mandatory; scroll-padding-inline: 16px; scrollbar-width: none;
+    }
+    .phone-row::-webkit-scrollbar { display: none; }
+    .phone-card { flex: 0 0 min(58vw, 240px); scroll-snap-align: start; }
+  }
+  @media (max-width: 650px) {
+    .desktop-grid { grid-template-columns: 1fr; gap: 2rem; }
+    .shot { border-radius: 12px; }
+    .featured .meta h3 { font-size: 1.15rem; }
+  }
+
+  /* ---- lightbox ---- */
+  .lightbox {
+    width: 100vw; max-width: none; height: 100dvh; max-height: none; margin: 0; padding: 0; border: 0;
+    background: rgba(5, 9, 12, .95); color: #eef5f5; overflow: hidden;
+  }
+  .lightbox[open] { display: grid; grid-template-columns: 4.5rem minmax(0, 1fr) 4.5rem; grid-template-rows: auto minmax(0, 1fr); animation: lb-in .22s ease both; }
+  .lightbox::backdrop { background: transparent; }
+  @keyframes lb-in { from { opacity: 0; } to { opacity: 1; } }
+
+  .lb-bar { grid-column: 1 / -1; grid-row: 1; display: flex; align-items: center; justify-content: space-between; padding: .9rem 1.1rem; }
+  .lb-count { color: #8ea0a8; font-family: var(--mono); font-size: .75rem; letter-spacing: .06em; }
+  .lb-btn {
+    display: grid; width: 44px; height: 44px; place-items: center; padding: 0; cursor: pointer;
+    border: 1px solid rgba(185, 207, 214, .2); border-radius: 50%; background: rgba(20, 30, 38, .8); color: #e4efef;
+    transition: background .2s ease, border-color .2s ease;
+  }
+  .lb-btn:hover { border-color: rgba(43, 191, 156, .6); background: rgba(27, 56, 56, .9); }
+  .lb-nav { grid-row: 2; align-self: center; justify-self: center; }
+  .lb-prev { grid-column: 1; }
+  .lb-next { grid-column: 3; }
+  .lb-stage {
+    grid-column: 2; grid-row: 2; display: flex; min-height: 0; flex-direction: column; align-items: center; justify-content: center;
+    gap: 1rem; min-width: 0; margin: 0; padding-bottom: 1.2rem; touch-action: pan-y pinch-zoom;
+  }
+  .lb-scroll { min-height: 0; max-width: 100%; flex: 0 1 auto; overflow: hidden; border: 1px solid rgba(185, 207, 214, .16); border-radius: 10px; box-shadow: 0 30px 80px rgba(0, 0, 0, .6); }
+  .lb-scroll.pannable { overflow-x: auto; overscroll-behavior: contain; -webkit-overflow-scrolling: touch; }
+  .lb-scroll img { display: block; max-width: none; width: auto; height: auto; }
+  .lb-hint { color: #6f8790; font-size: .72rem; letter-spacing: .04em; }
+  .lb-stage figcaption { display: grid; flex: none; gap: .25rem; max-width: 62ch; padding-inline: .5rem; text-align: center; }
+  .lb-stage strong { font-size: 1rem; font-weight: 650; }
+  .lb-stage figcaption span { color: #8ea0a8; font-size: .88rem; line-height: 1.5; }
+
+  @media (max-width: 650px) {
+    .lightbox[open] { grid-template-columns: minmax(0, 1fr); grid-template-rows: auto minmax(0, 1fr); }
+    .lb-stage { grid-column: 1; padding: 0 .9rem 1.2rem; }
+    .lb-nav { position: absolute; top: 50%; z-index: 2; width: 40px; height: 40px; transform: translateY(-70%); background: rgba(10, 16, 21, .6); }
+    .lb-prev { left: .4rem; }
+    .lb-next { right: .4rem; }
+  }
+</style>
+
+<script>
+  const dialog = document.querySelector<HTMLDialogElement>('[data-lightbox]')
+  const triggers = Array.from(document.querySelectorAll<HTMLButtonElement>('[data-shot]'))
+
+  if (dialog && triggers.length) {
+    const img = dialog.querySelector<HTMLImageElement>('[data-lb-img]')!
+    const title = dialog.querySelector<HTMLElement>('[data-lb-title]')!
+    const caption = dialog.querySelector<HTMLElement>('[data-lb-caption]')!
+    const count = dialog.querySelector<HTMLElement>('[data-lb-count]')!
+    const stage = dialog.querySelector<HTMLElement>('[data-lb-stage]')!
+    const scroller = dialog.querySelector<HTMLElement>('[data-lb-scroll]')!
+    const hint = dialog.querySelector<HTMLElement>('[data-lb-hint]')!
+    let index = 0
+
+    // Size the image so it always fits the viewport: it needs the stage height
+    // minus the caption, which flexbox alone cannot derive from an aspect ratio.
+    const fit = () => {
+      const w = Number(img.dataset.w)
+      const h = Number(img.dataset.h)
+      if (!w || !h) return
+      const cap = (stage.querySelector('figcaption') as HTMLElement).offsetHeight + 28
+      const maxW = stage.clientWidth
+      const maxH = Math.max(120, stage.clientHeight - cap)
+      // A wide desktop screenshot squeezed into a phone-width stage is
+      // unreadable, so on narrow screens fit it to height and let it pan.
+      const pannable = w > h && maxW < 640
+      const scale = pannable ? Math.min(maxH / h, 1) : Math.min(maxW / w, maxH / h, 1)
+      img.style.width = `${Math.round(w * scale)}px`
+      img.style.height = `${Math.round(h * scale)}px`
+      scroller.classList.toggle('pannable', pannable)
+      scroller.scrollLeft = 0
+      hint.hidden = !pannable
+    }
+
+    const preload = (i: number) => {
+      const t = triggers[(i + triggers.length) % triggers.length]
+      const p = new Image()
+      p.src = t.dataset.full ?? ''
+    }
+
+    const show = (i: number) => {
+      index = (i + triggers.length) % triggers.length
+      const t = triggers[index]
+      img.dataset.w = t.dataset.w
+      img.dataset.h = t.dataset.h
+      img.alt = t.dataset.alt ?? ''
+      img.src = t.dataset.full ?? ''
+      title.textContent = t.dataset.title ?? ''
+      caption.textContent = t.dataset.caption ?? ''
+      count.textContent = `${index + 1} / ${triggers.length}`
+      fit()
+      preload(index + 1)
+      preload(index - 1)
+    }
+
+    const close = () => dialog.close()
+
+    triggers.forEach((t, i) =>
+      t.addEventListener('click', () => {
+        dialog.showModal()
+        document.documentElement.classList.add('lb-open')
+        show(i)
+      }),
+    )
+
+    dialog.addEventListener('close', () => document.documentElement.classList.remove('lb-open'))
+    dialog.querySelector('[data-lb-close]')?.addEventListener('click', close)
+    dialog.querySelector('[data-lb-prev]')?.addEventListener('click', () => show(index - 1))
+    dialog.querySelector('[data-lb-next]')?.addEventListener('click', () => show(index + 1))
+
+    // Click on the dark area (not the image or caption) closes.
+    dialog.addEventListener('click', (e) => {
+      const target = e.target as HTMLElement
+      if (target === dialog || target === stage) close()
+    })
+
+    dialog.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowLeft') { e.preventDefault(); show(index - 1) }
+      if (e.key === 'ArrowRight') { e.preventDefault(); show(index + 1) }
+    })
+
+    // Horizontal swipe on touch screens.
+    let startX = 0
+    let startY = 0
+    stage.addEventListener('pointerdown', (e) => { startX = e.clientX; startY = e.clientY })
+    stage.addEventListener('pointerup', (e) => {
+      if (e.pointerType === 'mouse' || scroller.classList.contains('pannable')) return
+      const dx = e.clientX - startX
+      const dy = e.clientY - startY
+      if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy) * 1.5) show(index + (dx < 0 ? 1 : -1))
+    })
+
+    window.addEventListener('resize', () => { if (dialog.open) fit() })
+  }
+</script>
+
+<style is:global>
+  html.lb-open { overflow: hidden; }
+</style>
