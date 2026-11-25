@@ -114,7 +114,7 @@
   .intro-heading { display: grid; grid-template-columns: 1.4fr .6fr; align-items: end; gap: 6rem; margin-top: 1.8rem; }
   .intro-heading p { padding-bottom: .45rem; color: var(--muted); line-height: 1.75; }
   .value-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-top: 4.2rem; }
-  .value-card { position: relative; min-height: 365px; overflow: hidden; padding: 2rem; border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); box-shadow: 0 10px 35px rgba(25, 52, 58, .035); }
+  .value-card { position: relative; min-height: 385px; overflow: hidden; padding: 2rem; border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); box-shadow: 0 10px 35px rgba(25, 52, 58, .035); }
   .value-card.featured { background: var(--navy); color: #eef5f5; }
   .value-icon, .icon-chip { display: grid; width: 43px; height: 43px; place-items: center; border: 1px solid #dce5e5; border-radius: 11px; background: #f3f7f6; color: var(--accent-dark); }
   .featured .value-icon { border-color: rgba(255,255,255,.1); background: rgba(49, 191, 173, .1); color: #56d1c2; }
@@ -135,6 +135,24 @@
   .micro-flow b { color: #b2bdc0; font-weight: 400; }
   .micro-flow .live { color: var(--accent-dark); }
   .micro-flow .live i { display: inline-block; width: 5px; height: 5px; margin-right: 4px; border-radius: 50%; background: var(--brand-teal); box-shadow: 0 0 0 3px rgba(43,191,156,.12); }
+
+  .micro-spool, .micro-import, .micro-queue { position: absolute; right: 2rem; bottom: 2rem; left: 2rem; color: #617078; font-size: .72rem; }
+  .micro-spool { display: grid; gap: .5rem; padding: .85rem; border: 1px solid var(--line); border-radius: 9px; }
+  .micro-spool span { color: var(--ink); font-weight: 650; }
+  .micro-spool div { height: 6px; overflow: hidden; border-radius: 3px; background: var(--surface-soft); }
+  .micro-spool i { display: block; width: 62%; height: 100%; border-radius: 3px; background: linear-gradient(90deg, var(--brand-teal), var(--brand-cyan)); }
+  .micro-spool small { color: var(--faint); font: 600 .62rem var(--mono); }
+  .micro-import { display: flex; height: 43px; align-items: center; justify-content: space-between; gap: .5rem; padding: 0 .8rem; border: 1px solid var(--line); border-radius: 9px; font-family: var(--mono); font-size: .62rem; }
+  .micro-import span { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .micro-import b { display: inline-flex; flex: none; align-items: center; gap: .25rem; color: var(--accent-dark); font-weight: 650; }
+  .micro-queue { display: grid; gap: .4rem; }
+  .micro-queue li { display: flex; align-items: center; gap: .5rem; padding: .5rem .7rem; border: 1px solid var(--line); border-radius: 8px; }
+  .micro-queue li > i, .micro-queue li > svg { flex: none; width: 15px; height: 15px; border: 1px solid #cfdadc; border-radius: 50%; }
+  .micro-queue li > svg { padding: 3px; border-color: var(--brand-teal); background: var(--brand-teal); color: #fff; }
+  .micro-queue .done { color: var(--faint); text-decoration: line-through; }
+  .features-more { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1rem 2rem; margin-top: 2rem; padding: 1.4rem 1.6rem; border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); }
+  .features-more .button-dark { margin-top: 0; }
+  .features-more p { color: var(--muted); font-size: .95rem; }
 
   .bento { background: #edf2f1; }
   .screenshots { background: var(--navy); color: #eef5f5; }
@@ -355,7 +373,8 @@
     .format-list { width: 100%; }
     .format-list span:nth-of-type(n+5), .format-list i:nth-of-type(n+4) { display: none; }
     .value-card { padding: 1.5rem; }
-    .micro-search { right: 1.5rem; left: 1.5rem; }
+    .micro-search, .micro-spool, .micro-import, .micro-queue { right: 1.5rem; left: 1.5rem; }
+    .features-more .button { width: 100%; }
     .bento-grid { grid-template-columns: 1fr; }
     .bento-wide { grid-column: auto; }
     .bento-card { min-height: 410px; padding: 1.5rem; }

@@ -1,0 +1,184 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro'
+import Icon from '../components/Icon.astro'
+import SiteFooter from '../components/SiteFooter.astro'
+import SiteHeader from '../components/SiteHeader.astro'
+import { featureCount, featureGroups } from '../data/features'
+
+const docs = 'https://docs.printbench.app'
+---
+
+<BaseLayout
+  title="PrintBench features"
+  description="Everything PrintBench does for your 3D print library, from search and previews to filament, slicers, printers and backups."
+>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <SiteHeader />
+
+  <main id="main">
+    <div class="hero-shell">
+      <div class="features-hero container">
+        <h1>Every feature, <em>in one place.</em></h1>
+        <p>
+          {featureCount} things PrintBench does for your print library today. Want the story of what is next?
+          See the <a href="/roadmap/">roadmap</a>.
+        </p>
+        <nav class="features-jump" aria-label="Feature categories">
+          {featureGroups.map((group) => <a href={`#${group.id}`}>{group.title}</a>)}
+        </nav>
+      </div>
+    </div>
+
+    <div class="feature-groups container">
+      {featureGroups.map((group) => (
+        <section class="feature-group" aria-labelledby={`${group.id}-title`} id={group.id}>
+          <div class="feature-group-heading">
+            <span class="icon-chip"><Icon name={group.icon} size={19} /></span>
+            <div>
+              <h2 id={`${group.id}-title`}>{group.title}</h2>
+              <p>{group.summary}</p>
+            </div>
+          </div>
+          <ul class="feature-list">
+            {group.features.map((feature) => (
+              <li class="feature-item">
+                <h3>{feature.title}</h3>
+                <p>{feature.body}</p>
+              </li>
+            ))}
+          </ul>
+        </section>
+      ))}
+    </div>
+
+    <section class="features-cta container">
+      <div>
+        <h2>Ready to try it?</h2>
+        <p>One command starts PrintBench and Postgres. Or read the guide for the details of each feature.</p>
+      </div>
+      <div class="features-cta-actions">
+        <a class="button button-dark" href="/#get-started">Get started <Icon name="arrow-right" size={17} /></a>
+        <a class="button button-outline" href={`${docs}/guide/`}>Read the user guide</a>
+      </div>
+    </section>
+  </main>
+
+  <SiteFooter />
+</BaseLayout>
+
+<style>
+  .features-hero {
+    padding-block: clamp(8rem, 15vw, 11rem) clamp(3rem, 8vw, 5rem);
+  }
+
+  .features-hero h1 {
+    margin-bottom: 1.25rem;
+    font-size: clamp(2.75rem, 7vw, 5rem);
+    font-weight: 650;
+    letter-spacing: -.06em;
+    line-height: 1;
+  }
+
+  .features-hero > p {
+    max-width: 60ch;
+    color: #c0cbd0;
+    line-height: 1.65;
+  }
+
+  .features-hero > p a { color: #69d3c6; text-decoration: underline; }
+
+  .features-jump {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .6rem;
+    margin-top: 2.25rem;
+  }
+
+  .features-jump a {
+    padding: .5rem .9rem;
+    border: 1px solid rgba(255, 255, 255, .15);
+    border-radius: 999px;
+    color: #d9e3e5;
+    font-size: .82rem;
+    font-weight: 650;
+    transition: border-color .2s ease, background .2s ease;
+  }
+
+  .features-jump a:hover { border-color: rgba(255, 255, 255, .35); background: rgba(255, 255, 255, .07); }
+
+  .feature-groups {
+    display: grid;
+    gap: clamp(3rem, 7vw, 5rem);
+    padding-block: clamp(3rem, 8vw, 6rem);
+  }
+
+  .feature-group { scroll-margin-top: 2rem; }
+
+  .feature-group-heading {
+    display: flex;
+    align-items: center;
+    gap: 1.1rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .feature-group-heading .icon-chip { flex: none; }
+
+  .feature-group-heading h2 {
+    font-size: clamp(1.6rem, 3.6vw, 2.25rem);
+    letter-spacing: -.04em;
+    line-height: 1.1;
+  }
+
+  .feature-group-heading p {
+    margin-top: .35rem;
+    color: var(--muted);
+    line-height: 1.55;
+  }
+
+  .feature-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 19rem), 1fr));
+    gap: 1rem;
+  }
+
+  .feature-item {
+    min-width: 0;
+    padding: 1.5rem;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: var(--surface);
+  }
+
+  .feature-item h3 { font-size: 1.1rem; letter-spacing: -.02em; }
+
+  .feature-item p {
+    margin-top: .55rem;
+    color: var(--muted);
+    font-size: .92rem;
+    line-height: 1.65;
+  }
+
+  .features-cta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem 3rem;
+    margin-bottom: clamp(4rem, 8vw, 7rem);
+    padding: clamp(1.5rem, 4vw, 2.5rem);
+    border-radius: var(--radius);
+    background: var(--navy);
+    color: #eef5f5;
+  }
+
+  .features-cta h2 { font-size: clamp(1.75rem, 4vw, 2.5rem); }
+  .features-cta p { max-width: 46ch; margin-top: .6rem; color: #8ea0a8; line-height: 1.6; }
+  .features-cta-actions { display: flex; flex-wrap: wrap; gap: .75rem; }
+  .features-cta .button-dark { margin-top: 0; border-color: rgba(255, 255, 255, .15); background: linear-gradient(135deg, #35c3ad, #30b8c9); color: #0b2528; }
+  .button-outline { border-color: rgba(255, 255, 255, .2); color: #d9e3e5; }
+  .button-outline:hover { border-color: rgba(255, 255, 255, .4); }
+
+  @media (max-width: 650px) {
+    .features-cta-actions, .features-cta-actions .button { width: 100%; }
+  }
+</style>
