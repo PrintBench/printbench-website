@@ -6,6 +6,7 @@ import SiteHeader from '../components/SiteHeader.astro'
 import { featureCount, featureGroups } from '../data/features'
 
 const docs = 'https://docs.printbench.app'
+const demo = 'https://demo.printbench.app'
 ---
 
 <BaseLayout
@@ -54,11 +55,11 @@ const docs = 'https://docs.printbench.app'
     <section class="features-cta container">
       <div>
         <h2>Ready to try it?</h2>
-        <p>One command starts PrintBench and Postgres. Or read the guide for the details of each feature.</p>
+        <p>One command starts PrintBench and Postgres. Or click around the live demo first: it resets every night at midnight UTC, so nothing you change there sticks. The <a href={`${docs}/guide/`}>user guide</a> covers each feature in detail.</p>
       </div>
       <div class="features-cta-actions">
         <a class="button button-dark" href="/#get-started">Get started <Icon name="arrow-right" size={17} /></a>
-        <a class="button button-outline" href={`${docs}/guide/`}>Read the user guide</a>
+        <a class="button button-outline" href={demo} target="_blank" rel="noreferrer"><Icon name="play" size={16} /> Try the live demo</a>
       </div>
     </section>
   </main>
@@ -173,6 +174,7 @@ const docs = 'https://docs.printbench.app'
 
   .features-cta h2 { font-size: clamp(1.75rem, 4vw, 2.5rem); }
   .features-cta p { max-width: 46ch; margin-top: .6rem; color: #8ea0a8; line-height: 1.6; }
+  .features-cta p a { color: #69d3c6; text-decoration: underline; text-underline-offset: 2px; }
   .features-cta-actions { display: flex; flex-wrap: wrap; gap: .75rem; }
   .features-cta .button-dark { margin-top: 0; border-color: rgba(255, 255, 255, .15); background: linear-gradient(135deg, #35c3ad, #30b8c9); color: #0b2528; }
   .button-outline { border-color: rgba(255, 255, 255, .2); color: #d9e3e5; }

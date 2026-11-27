@@ -10,6 +10,7 @@ import SiteHeader from '../components/SiteHeader.astro'
 const github = 'https://github.com/PrintBench/printbench'
 const githubApi = `https://api.github.com/repos${new URL(github).pathname}`
 const docs = 'https://docs.printbench.app'
+const demo = 'https://demo.printbench.app'
 const composeDownload = `${github}/releases/latest/download/compose.yaml`
 ---
 
@@ -28,7 +29,7 @@ const composeDownload = `${github}/releases/latest/download/compose.yaml`
           </p>
           <div class="hero-actions">
             <a class="button button-primary" href="#get-started">Get started <Icon name="arrow-right" size={17} /></a>
-            <a class="button button-ghost" href={github} target="_blank" rel="noreferrer"><Icon name="github" size={18} /> Explore the code</a>
+            <a class="button button-ghost" href={demo} target="_blank" rel="noreferrer"><Icon name="play" size={17} /> Try the live demo</a>
           </div>
           <ul class="hero-proof" aria-label="Key benefits">
             <li><Icon name="check" size={15} /> Self-hosted</li>
