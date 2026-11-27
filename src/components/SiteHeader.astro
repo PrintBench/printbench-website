@@ -7,6 +7,7 @@ const github = 'https://github.com/PrintBench/printbench'
 const githubApi = `https://api.github.com/repos${new URL(github).pathname}`
 const docs = 'https://docs.printbench.app'
 const discord = 'https://discord.gg/6xwqYj4Rh'
+const demo = 'https://demo.printbench.app'
 const path = Astro.url.pathname.replace(/\/$/, '')
 const isRoadmap = path === '/roadmap'
 const isFeatures = path === '/features'
@@ -15,18 +16,26 @@ const isFeatures = path === '/features'
 <header class="site-header" data-header>
   <div class="nav-wrap container">
     <a class="logo-link" href="/" aria-label="PrintBench home"><Logo gradientId="header-logo-gradient" /></a>
+    <!--
+      Seven text links left no room for the demo, so the homepage section anchors
+      (Screenshots, How it works) live in the mobile menu and footer instead, and
+      Discord and GitHub shrink to icons.
+    -->
     <nav class="desktop-nav" aria-label="Main navigation">
       <a href="/features/" aria-current={isFeatures ? 'page' : undefined}>Features</a>
-      <a href="/#screenshots">Screenshots</a>
-      <a href="/#workflow">How it works</a>
+      <a class="nav-with-icon" href={demo} target="_blank" rel="noreferrer">
+        <Icon name="play" size={15} /> Live demo
+      </a>
       <a href="/roadmap/" aria-current={isRoadmap ? 'page' : undefined}>Roadmap</a>
-      <a href={docs}>Documentation</a>
-      <a class="nav-with-icon" href={discord} target="_blank" rel="noreferrer">
-        <Icon name="discord" size={17} /> Discord
-      </a>
-      <a class="nav-with-icon" href={github} target="_blank" rel="noreferrer">
-        <Icon name="github" size={17} /> GitHub <GitHubStars apiUrl={githubApi} />
-      </a>
+      <a href={docs}>Docs</a>
+      <span class="nav-icons">
+        <a class="nav-icon" href={discord} target="_blank" rel="noreferrer" aria-label="Discord" title="Discord">
+          <Icon name="discord" size={18} />
+        </a>
+        <a class="nav-icon" href={github} target="_blank" rel="noreferrer" aria-label="PrintBench on GitHub" title="GitHub">
+          <Icon name="github" size={18} /> <GitHubStars apiUrl={githubApi} />
+        </a>
+      </span>
     </nav>
     <a class="nav-cta" href="/#get-started">
       <span>Get started</span>
@@ -40,6 +49,9 @@ const isFeatures = path === '/features'
   </div>
   <nav class="mobile-nav" id="mobile-nav" aria-label="Mobile navigation" data-mobile-nav>
     <a href="/features/" aria-current={isFeatures ? 'page' : undefined}>Features</a>
+    <a href={demo} target="_blank" rel="noreferrer">
+      <Icon name="play" size={15} /> Live demo
+    </a>
     <a href="/#screenshots">Screenshots</a>
     <a href="/#workflow">How it works</a>
     <a href="/roadmap/" aria-current={isRoadmap ? 'page' : undefined}>Roadmap</a>
